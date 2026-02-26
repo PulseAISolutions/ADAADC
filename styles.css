@@ -339,7 +339,8 @@ button {
 
 .mobile-nav-close {
     position: absolute;
-    top: 20px;
+    top: 60px;
+    /* Increased to avoid being blocked by in-app browser headers */
     right: 24px;
     background: none;
     font-size: 2rem;
