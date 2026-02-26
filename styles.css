@@ -1157,6 +1157,8 @@ button {
     padding: 36px 28px;
     position: relative;
     transition: transform var(--transition), box-shadow var(--transition);
+    display: flex;
+    flex-direction: column;
 }
 
 .pricing-card:hover {
@@ -1257,6 +1259,7 @@ button {
 .btn-pricing {
     display: block;
     width: 100%;
+    margin-top: auto;
     text-align: center;
     padding: 14px;
     border-radius: var(--radius-sm);
