@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Azkals Development Academy — Train. Compete. Excel.</title>
+  <meta name="description"
+    content="Premier football academy in the Philippines founded by Stephan Schröck. Age-appropriate training programs for U6 to U19 players across Metro Manila and South Luzon." />
+
+  <!-- Security Headers -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.paymongo.com; frame-ancestors 'none'; form-action 'self' mailto:;" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
+
+  <link rel="icon" href="./assets/azkals_logo_new.jpg" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header class="header" id="header">
+    <div class="container">
+      <a href="#" class="header-logo">
+        <img src="./assets/azkals_logo_new.jpg" alt="Azkals Development Academy Logo" />
+        <div class="header-logo-text">
+          <span class="brand">AZKALS</span>
+          <span class="sub">Development Academy</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#programs">Programs</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a href="#contact" class="btn-join">Join Now</a>
+
+      <button class="menu-toggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========== MOBILE NAV ========== -->
+  <div class="mobile-nav" id="mobile-nav">
+    <button class="mobile-nav-close" aria-label="Close menu">&#x2715;</button>
+    <a href="#about">About</a>
+    <a href="#programs">Programs</a>
+    <a href="#schedule">Schedule</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+    <a href="#contact" class="btn-join" style="margin-top:16px;">Join Now</a>
+  </div>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <img src="./assets/player_action_1.png" alt="Football action" />
+    </div>
+    <div class="hero-overlay"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-badge">Premier Football Academy</span>
+        <h1 class="hero-heading">
+          TRAIN.<br>COMPETE.<br><span class="accent">EXCEL.</span>
+        </h1>
+        <div class="hero-buttons">
+          <a href="#contact" class="btn-primary">Join the Academy &nbsp;→</a>
+          <a href="#programs" class="btn-ghost">▷ View Programs</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <span class="hero-card-est">EST. 2023</span>
+        <div class="hero-card-image">
+          <img src="./assets/stephan_schrock.jpg" alt="Stephan Schröck" />
+          <div class="card-overlay">
+            <div class="name-overlay">
+              <img class="mini-logo" src="./assets/azkals_logo_new.jpg" alt="Logo" />
+              <div class="name-overlay-text">
+                <h3>STEPHAN SCHRÖCK</h3>
+                <p>Founder &amp; Head Coach</p>
+              </div>
+            </div>
+            <div class="credential"><span class="icon">🏅</span> Former Philippines National Team Captain</div>
+            <div class="credential"><span class="icon">🎖️</span> UEFA Licensed Coach</div>
+            <div class="credential"><span class="icon">⭐</span> Bundesliga Experience</div>
+            <div class="hero-card-stat">
+              <span class="stat-badge">200+</span>
+              <div class="stat-text">
+                <strong>Active Players</strong>
+                <span>Nationwide</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 9l6 6 6-6" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- ========== STATS BAR ========== -->
+  <section class="stats">
+    <div class="container">
+      <div class="stat-item">
+        <div class="stat-number" data-target="200" data-suffix="+">0</div>
+        <div class="stat-label">Active Players</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="2023" data-no-comma="true">0</div>
+        <div class="stat-label">Year Founded</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="3">0</div>
+        <div class="stat-label">Branches Nationwide</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="1">0</div>
+        <div class="stat-label">Levante Scholarship</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section class="about fade-in" id="about">
+    <div class="container">
+      <div class="about-image">
+        <img src="./assets/team_u10.jpg" alt="ADA young players" />
+      </div>
+      <div class="about-content">
+        <div class="section-label left-only">Building Character Through Football</div>
+        <h2 class="section-title">More Than Just a <span class="highlight-blue">Game</span></h2>
+        <p class="about-text">At Azkals Development Academy, we believe football is a powerful tool for character
+          building. Our holistic approach develops not just skilled players, but disciplined, confident, and resilient
+          individuals who excel both on and off the pitch.</p>
+        <div class="about-features">
+          <div class="about-feature">
+            <div class="feature-icon">🎓</div>
+            <span>Professional UEFA-licensed coaches</span>
+          </div>
+          <div class="about-feature">
+            <div class="feature-icon">👥</div>
+            <span>Age-appropriate training programs</span>
+          </div>
+          <div class="about-feature">
+            <div class="feature-icon">🎯</div>
+            <span>Character development curriculum</span>
+          </div>
+          <div class="about-feature">
+            <div class="feature-icon">❤️</div>
+            <span>Pathway to professional football</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROGRAMS ========== -->
+  <section class="programs fade-in" id="programs">
+    <div class="container">
+      <div class="section-label">Our Programs</div>
+      <h2 class="section-title">TRAINING <span class="highlight">PROGRAMS</span></h2>
+      <p class="section-subtitle">Age-appropriate development pathways designed to nurture talent at every stage</p>
+
+      <div class="programs-grid">
+        <!-- Mini Azkals -->
+        <div class="program-card green">
+          <div class="program-card-header">
+            <div class="program-icon">😊</div>
+            <span class="program-age">U6 - U8</span>
+          </div>
+          <h3>Mini Azkals</h3>
+          <p>Foundation phase focusing on basic motor skills and football fundamentals in a fun, engaging environment.
+          </p>
+          <div class="program-tags">
+            <span>Fun games</span><span>Basic skills</span><span>Teamwork</span>
+          </div>
+          <a href="#contact" class="program-link">Register Now →</a>
+        </div>
+
+        <!-- Youth Academy -->
+        <div class="program-card blue">
+          <div class="program-card-header">
+            <div class="program-icon">👥</div>
+            <span class="program-age">U9 - U12</span>
+          </div>
+          <h3>Youth Academy</h3>
+          <p>Technical development with emphasis on ball control, passing, and game understanding through structured
+            training.</p>
+          <div class="program-tags">
+            <span>Technical skills</span><span>Tactical awareness</span><span>Match play</span>
+          </div>
+          <a href="#contact" class="program-link">Register Now →</a>
+        </div>
+
+        <!-- Elite Squad -->
+        <div class="program-card red">
+          <div class="program-card-header">
+            <div class="program-icon">⭐</div>
+            <span class="program-age">U13 - U16</span>
+          </div>
+          <h3>Elite Squad</h3>
+          <p>Advanced tactical training, physical conditioning, and competitive match experience for aspiring players.
+          </p>
+          <div class="program-tags">
+            <span>Advanced tactics</span><span>Strength training</span><span>Competitions</span>
+          </div>
+          <a href="#contact" class="program-link">Register Now →</a>
+        </div>
+
+        <!-- College Prep -->
+        <div class="program-card yellow">
+          <div class="program-card-header">
+            <div class="program-icon">🔗</div>
+            <span class="program-age">U17 - U19</span>
+          </div>
+          <h3>College Prep</h3>
+          <p>Preparation for collegiate and professional pathways with intensive training and exposure to scouts.</p>
+          <div class="program-tags">
+            <span>College prep</span><span>Pro exposure</span><span>Mentorship</span>
+          </div>
+          <a href="#contact" class="program-link">Register Now →</a>
+        </div>
+
+        <!-- ADA Girls Training -->
+        <div class="program-card purple">
+          <div class="program-card-header">
+            <div class="program-icon">❤️</div>
+            <span class="program-age">All Ages</span>
+          </div>
+          <h3>ADA Girls Training</h3>
+          <p>Dedicated training program for female athletes. Fun, competitive, and empowering environment for all skill
+            levels.</p>
+          <div class="program-tags">
+            <span>All ages</span><span>Girls only</span><span>Empowerment</span>
+          </div>
+          <a href="#contact" class="program-link">Register Now →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SCHEDULE ========== -->
+  <section class="schedule fade-in" id="schedule">
+    <div class="container">
+      <div class="section-label">Training Schedule</div>
+      <h2 class="section-title" style="text-align:center;">FEBRUARY <span class="highlight-blue">2026</span> SCHEDULE
+      </h2>
+      <p class="section-subtitle">Train at any of our 5 locations across Metro Manila and South Luzon</p>
+
+      <div class="schedule-grid">
+        <!-- Monday -->
+        <div class="schedule-card">
+          <div class="schedule-card-header">
+            <div>
+              <h3>Monday</h3>
+              <span class="dates">Feb 2, 9, 16, 23</span>
+            </div>
+            <span class="schedule-badge">U9 - U12</span>
+          </div>
+          <div class="schedule-detail"><span class="icon">🕐</span> 5:00 PM - 7:00 PM</div>
+          <div class="schedule-detail"><span class="icon">📍</span> McKinley Hill Stadium</div>
+          <a href="https://maps.google.com/?q=McKinley+Hill+Stadium" target="_blank" class="schedule-directions">📤 Get
+            Directions</a>
+        </div>
+
+        <!-- Tuesday -->
+        <div class="schedule-card accent-red">
+          <div class="schedule-card-header">
+            <div>
+              <h3>Tuesday</h3>
+              <span class="dates">Feb 3, 10, 17, 24</span>
+            </div>
+            <span class="schedule-badge red">Elite Squad U13+</span>
+          </div>
+          <div class="schedule-detail"><span class="icon">🕐</span> 6:00 PM - 8:00 PM</div>
+          <div class="schedule-detail"><span class="icon">📍</span> MOA Adidas Pitch</div>
+          <a href="https://maps.google.com/?q=MOA+Adidas+Pitch" target="_blank" class="schedule-directions">📤 Get
+            Directions</a>
+        </div>
+
+        <!-- Wednesday -->
+        <div class="schedule-card">
+          <div class="schedule-card-header">
+            <div>
+              <h3>Wednesday</h3>
+              <span class="dates">Feb 4, 11, 18, 25</span>
+            </div>
+            <span class="schedule-badge">U6 - U8</span>
+          </div>
+          <div class="schedule-detail"><span class="icon">🕐</span> 5:00 PM - 7:00 PM</div>
+          <div class="schedule-detail"><span class="icon">📍</span> Vermosa Sports Hub</div>
+          <a href="https://maps.google.com/?q=Vermosa+Sports+Hub" target="_blank" class="schedule-directions">📤 Get
+            Directions</a>
+        </div>
+
+        <!-- Thursday -->
+        <div class="schedule-card accent-red">
+          <div class="schedule-card-header">
+            <div>
+              <h3>Thursday</h3>
+              <span class="dates">Feb 5, 12, 19, 26</span>
+            </div>
+            <span class="schedule-badge red">U17 - U19 College Prep</span>
+          </div>
+          <div class="schedule-detail"><span class="icon">🕐</span> 6:00 PM - 8:00 PM</div>
+          <div class="schedule-detail"><span class="icon">📍</span> Venare Nuvali</div>
+          <a href="https://maps.google.com/?q=Venare+Nuvali" target="_blank" class="schedule-directions">📤 Get
+            Directions</a>
+        </div>
+
+        <!-- Saturday -->
+        <div class="schedule-card">
+          <div class="schedule-card-header">
+            <div>
+              <h3>Saturday</h3>
+              <span class="dates">Feb 7, 14, 21, 28</span>
+            </div>
+            <span class="schedule-badge green">All Age Groups</span>
+          </div>
+          <div class="schedule-detail"><span class="icon">🕐</span> 8:00 AM - 10:00 AM</div>
+          <div class="schedule-detail"><span class="icon">📍</span> BGC Turf</div>
+          <a href="https://maps.google.com/?q=BGC+Turf" target="_blank" class="schedule-directions">📤 Get
+            Directions</a>
+        </div>
+      </div>
+
+      <p class="schedule-note"><strong>Note:</strong> Schedule may change due to weather or tournaments. Follow us on <a
+          href="https://instagram.com/azkals.development.academy" target="_blank">📷 Instagram</a> for updates.</p>
+    </div>
+  </section>
+
+  <!-- ========== PRICING ========== -->
+  <section class="pricing fade-in" id="pricing">
+    <div class="container">
+      <div class="section-label">Investment</div>
+      <h2 class="section-title" style="text-align:center;">TRAINING <span class="highlight-blue">FEES</span></h2>
+      <p class="section-subtitle">Choose the plan that fits your commitment level. First session is always FREE!</p>
+
+      <div class="pricing-grid">
+        <!-- Annual -->
+        <div class="pricing-card featured">
+          <div class="pricing-icon">⭐</div>
+          <h3>Annual Membership</h3>
+          <div class="pricing-amount">
+            <span class="price">₱3,500</span>
+            <span class="period">/year</span>
+          </div>
+          <p class="pricing-desc">Best value for committed players</p>
+          <ul class="pricing-features">
+            <li><span class="check">✓</span> Full year access to all training sessions</li>
+            <li><span class="check">✓</span> 2 official ADA training kits</li>
+            <li><span class="check">✓</span> Priority booking for all venues</li>
+            <li><span class="check">✓</span> Exclusive member events &amp; tournaments</li>
+            <li><span class="check">✓</span> Progress tracking &amp; assessments</li>
+          </ul>
+          <a href="#contact" class="btn-pricing filled">Get Started</a>
+        </div>
+
+        <!-- Per Session -->
+        <div class="pricing-card">
+          <div class="pricing-icon">⚡</div>
+          <h3>Per Session</h3>
+          <div class="pricing-amount">
+            <span class="price">₱1,500</span>
+            <span class="period">/session</span>
+          </div>
+          <p class="pricing-desc">Flexible pay-as-you-go option</p>
+          <ul class="pricing-features">
+            <li><span class="check">✓</span> All venues: ₱1,500 per session</li>
+            <li><span class="check">✓</span> ADC sessions: ₱1,800 per session</li>
+            <li><span class="check">✓</span> No commitment required</li>
+            <li><span class="check">✓</span> Book anytime online</li>
+          </ul>
+          <a href="#contact" class="btn-pricing outline">Get Started</a>
+        </div>
+
+        <!-- Monthly -->
+        <div class="pricing-card">
+          <div class="pricing-icon">📊</div>
+          <h3>Monthly Plans</h3>
+          <div class="pricing-amount">
+            <span class="price">From ₱4,500</span>
+            <span class="period">/month</span>
+          </div>
+          <p class="pricing-desc">Unlimited training by age group</p>
+          <ul class="pricing-features">
+            <li><span class="check">✓</span> Mini Azkals (U6-U8): ₱4,500/mo</li>
+            <li><span class="check">✓</span> Youth Academy (U9-U12): ₱5,500/mo</li>
+            <li><span class="check">✓</span> Elite Squad (U13-U16): ₱6,500/mo</li>
+            <li><span class="check">✓</span> College Prep (U17-U19): ₱7,500/mo</li>
+            <li><span class="check">✓</span> Girls/ADC Womens: ₱5,000/mo</li>
+          </ul>
+          <a href="#contact" class="btn-pricing outline">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== GALLERY ========== -->
+  <section class="gallery fade-in" id="gallery">
+    <div class="container">
+      <div class="gallery-header">
+        <div class="gallery-header-left">
+          <div class="section-label left-only">Moments &amp; Memories</div>
+          <h2 class="section-title">ACADEMY <span class="highlight-blue">LIFE</span></h2>
+        </div>
+        <span class="gallery-ig">📷 @azkals.development.academy</span>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item"><img src="./assets/u9_champions.jpg" alt="U9 LBC Cup Champions" /></div>
+        <div class="gallery-item"><img src="./assets/team_semis.jpg" alt="Singa Cup team" /></div>
+        <div class="gallery-item"><img src="./assets/u13_champions.jpg" alt="U13 LBC Cup Champions" /></div>
+        <div class="gallery-item"><img src="./assets/ada_girls.jpg" alt="ADA Girls Training" /></div>
+        <div class="gallery-item"><img src="./assets/team_huddle.jpg" alt="Team huddle" /></div>
+        <div class="gallery-item"><img src="./assets/team_celebration_1.jpg" alt="Team celebration" /></div>
+      </div>
+
+      <div class="gallery-cta">
+        <a href="https://instagram.com/azkals.development.academy" target="_blank" class="btn-instagram">📷 View More on
+          Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ALUMNI CLUB ========== -->
+  <section class="alumni fade-in" id="alumni">
+    <div class="container">
+      <div class="alumni-content">
+        <span class="alumni-badge">Alumni Club</span>
+        <h2 class="section-title">AZKALS <span class="highlight-yellow">DEVELOPMENT</span> CLUB</h2>
+        <p class="alumni-subtitle">The Next Step for ADA Graduates</p>
+        <p class="alumni-text">Azkals Development Club (ADC) is the natural progression for ADA alumni ready to compete
+          at higher levels. Our senior team competes in prestigious tournaments, providing a pathway from youth
+          development to competitive adult football.</p>
+        <div class="alumni-achievements">
+          <div class="alumni-achievement">
+            <span class="icon">🏆</span>
+            <span class="rank">1st Runner-Up</span>
+            <span class="event">&bull; Ang Liga Cup 2025</span>
+          </div>
+          <div class="alumni-achievement">
+            <span class="icon">⭐</span>
+            <span class="rank">Quarter-Finals</span>
+            <span class="event">&bull; Ang Liga Cup 2025</span>
+          </div>
+          <div class="alumni-achievement">
+            <span class="icon">📈</span>
+            <span class="rank">Semi-Finals</span>
+            <span class="event">&bull; CDFM Tournament</span>
+          </div>
+        </div>
+        <div class="alumni-buttons">
+          <a href="https://instagram.com/azkals.development.academy" target="_blank" class="btn-follow ig">📷 Follow
+            ADC</a>
+          <a href="#" class="btn-follow fb">📘 ADA Facebook</a>
+        </div>
+      </div>
+
+      <div class="alumni-image">
+        <div class="main-img">
+          <img src="./assets/adc_celebration.jpg" alt="ADC celebration" />
+        </div>
+        <div class="overlay-img">
+          <img src="./assets/adc_runnerup.jpg" alt="ADC 1st Runner-Up" />
+          <div class="result-badge">
+            <span class="trophy">🏆</span>
+            <div class="result-text">
+              <strong>1st RUNNER-UP</strong>
+              <span>Ang Liga Cup 2025</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== REGISTRATION FORM ========== -->
+  <section class="registration fade-in" id="contact">
+    <div class="container">
+      <div class="section-label">Join the Academy</div>
+      <h2 class="section-title" style="text-align:center;">SECURE YOUR <span class="highlight-yellow">SPOT</span></h2>
+      <p class="section-subtitle">Join the next generation of Filipino football talent. Register for tryouts today.</p>
+
+      <form class="registration-form" id="registration-form">
+        <!-- Step 1: Player Details -->
+        <div id="form-step-1">
+          <div class="form-step-header">
+            <div class="step-indicator">
+              <span class="step active">1</span>
+              <span class="step-line"></span>
+              <span class="step">2</span>
+            </div>
+            <p class="step-title">Player Details</p>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Player Name <span class="required">*</span></label>
+              <div class="form-input">
+                <span class="input-icon">👤</span>
+                <input type="text" id="player-name" placeholder="Enter player's full name" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Birth Year <span class="required">*</span></label>
+              <div class="form-input">
+                <span class="input-icon">📅</span>
+                <select id="birth-year" required>
+                  <option value="" disabled selected>Select birth year</option>
+                  <option>2020</option>
+                  <option>2019</option>
+                  <option>2018</option>
+                  <option>2017</option>
+                  <option>2016</option>
+                  <option>2015</option>
+                  <option>2014</option>
+                  <option>2013</option>
+                  <option>2012</option>
+                  <option>2011</option>
+                  <option>2010</option>
+                  <option>2009</option>
+                  <option>2008</option>
+                  <option>2007</option>
+                  <option>2006</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Parent/Guardian Name <span class="required">*</span></label>
+              <div class="form-input">
+                <span class="input-icon">👤</span>
+                <input type="text" id="guardian-name" placeholder="Enter parent/guardian name" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Contact Number <span class="required">*</span></label>
+              <div class="form-input">
+                <span class="input-icon">📞</span>
+                <input type="tel" id="contact-number" placeholder="+63 XXX XXX XXXX" required />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group full">
+              <label>Select Program <span class="required">*</span></label>
+              <div class="form-input">
+                <span class="input-icon">🏅</span>
+                <select id="program-select" required>
+                  <option value="" disabled selected>Choose your program</option>
+                  <option value="4500">Mini Azkals (U6-U8) — ₱4,500/mo</option>
+                  <option value="5500">Youth Academy (U9-U12) — ₱5,500/mo</option>
+                  <option value="6500">Elite Squad (U13-U16) — ₱6,500/mo</option>
+                  <option value="7500">College Prep (U17-U19) — ₱7,500/mo</option>
+                  <option value="5000">ADA Girls Training — ₱5,000/mo</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group full">
+              <label>Preferred Training Location <span class="required">*</span></label>
+              <div class="form-input">
+                <span class="input-icon">📍</span>
+                <select id="location-select" required>
+                  <option value="" disabled selected>Select preferred location</option>
+                  <option>McKinley Hill Stadium</option>
+                  <option>MOA Adidas Pitch</option>
+                  <option>Vermosa Sports Hub</option>
+                  <option>Venare Nuvali</option>
+                  <option>BGC Turf</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" id="btn-to-payment" class="btn-submit" disabled>Continue to Payment →</button>
+        </div>
+
+        <!-- Step 2: Payment -->
+        <div id="form-step-2" style="display:none;">
+          <div class="form-step-header">
+            <div class="step-indicator">
+              <span class="step completed">✓</span>
+              <span class="step-line active"></span>
+              <span class="step active">2</span>
+            </div>
+            <p class="step-title">Payment</p>
+          </div>
+
+          <!-- Order Summary -->
+          <div class="payment-summary">
+            <div class="payment-summary-row">
+              <span>Program</span>
+              <strong id="summary-program">—</strong>
+            </div>
+            <div class="payment-summary-row">
+              <span>Player</span>
+              <strong id="summary-player">—</strong>
+            </div>
+            <div class="payment-summary-divider"></div>
+            <div class="payment-summary-row total">
+              <span>Amount Due</span>
+              <strong id="summary-amount">₱0</strong>
+            </div>
+          </div>
+
+          <!-- Payment Method Toggle -->
+          <div class="form-group full" style="margin-bottom:20px;">
+            <label>Payment Method <span class="required">*</span></label>
+            <div class="payment-method-toggle">
+              <button type="button" class="method-btn active" data-method="card">� Credit / Debit Card</button>
+              <button type="button" class="method-btn" data-method="gcash">📱 GCash</button>
+            </div>
+          </div>
+
+          <!-- Card Fields -->
+          <div id="payment-card">
+            <div class="form-row">
+              <div class="form-group full">
+                <label>Card Number <span class="required">*</span></label>
+                <div class="form-input">
+                  <span class="input-icon">💳</span>
+                  <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" required />
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Expiry Date <span class="required">*</span></label>
+                <div class="form-input">
+                  <span class="input-icon">📅</span>
+                  <input type="text" id="card-expiry" placeholder="MM / YY" maxlength="7" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>CVV <span class="required">*</span></label>
+                <div class="form-input">
+                  <span class="input-icon">🔒</span>
+                  <input type="text" id="card-cvv" placeholder="123" maxlength="4" required />
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group full">
+                <label>Cardholder Name <span class="required">*</span></label>
+                <div class="form-input">
+                  <span class="input-icon">👤</span>
+                  <input type="text" id="card-name" placeholder="Name on card" required />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- GCash Fields -->
+          <div id="payment-gcash" style="display:none;">
+            <div class="gcash-container">
+              <div class="gcash-qr">
+                <img src="./assets/gcash_qr.jpg" alt="GCash QR Code" />
+                <p>Scan to pay via GCash</p>
+              </div>
+              <div class="gcash-info">
+                <p><strong>Send exactly <span id="gcash-amount">₱0</span></strong></p>
+                <p class="gcash-note">After paying, enter your GCash reference number below.</p>
+                <div class="form-group" style="margin-top:14px;">
+                  <label>GCash Reference Number <span class="required">*</span></label>
+                  <div class="form-input">
+                    <span class="input-icon">📝</span>
+                    <input type="text" id="gcash-ref" placeholder="e.g. 1234 5678 9012" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="payment-actions">
+            <button type="button" id="btn-back" class="btn-back">← Back</button>
+            <button type="submit" class="btn-submit btn-pay">🔒 PAY <span id="btn-pay-amount">₱0</span></button>
+          </div>
+
+          <p class="form-disclaimer">By paying, you agree to our <a href="#">Terms of Service</a> and <a
+              href="#">Privacy Policy</a>. Payments are securely processed.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="header-logo">
+            <img src="./assets/azkals_logo_new.jpg" alt="ADA Logo"
+              style="width:48px;height:48px;border-radius:50%;object-fit:cover;" />
+            <div class="header-logo-text">
+              <span class="brand">AZKALS</span>
+              <span class="sub">Development Academy</span>
+            </div>
+          </div>
+          <p>Premier football academy in the Philippines, nurturing the next generation of Filipino football talent
+            through world-class training programs.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/azkals.development.academy?igsh=cWkyZXFkc3BkY2to" target="_blank"
+              rel="noopener noreferrer" aria-label="ADA Instagram" title="ADA Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/azkalsdevelopmentclub?igsh=eWx3enlsM3JvYmhy" target="_blank"
+              rel="noopener noreferrer" aria-label="ADC Instagram" title="ADC Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/share/18BjzP4JMK/?mibextid=wwXIfr" target="_blank"
+              rel="noopener noreferrer" aria-label="ADC Facebook" title="ADC Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Programs</h4>
+          <ul>
+            <li><a href="#programs">Mini Azkals (U6-U8)</a></li>
+            <li><a href="#programs">Youth Academy (U9-U12)</a></li>
+            <li><a href="#programs">Elite Squad (U13-U16)</a></li>
+            <li><a href="#programs">College Prep (U17-U19)</a></li>
+            <li><a href="#programs">Girls Training</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Locations</h4>
+          <ul>
+            <li><a href="https://maps.google.com/?q=McKinley+Hill+Stadium+Taguig" target="_blank"
+                rel="noopener noreferrer">McKinley Hill Stadium</a></li>
+            <li><a href="https://maps.google.com/?q=MOA+Adidas+Pitch+Pasay" target="_blank"
+                rel="noopener noreferrer">MOA Adidas Pitch</a></li>
+            <li><a href="https://maps.google.com/?q=Vermosa+Sports+Hub+Cavite" target="_blank"
+                rel="noopener noreferrer">Vermosa Sports Hub</a></li>
+            <li><a href="https://maps.google.com/?q=Venare+Nuvali+Laguna" target="_blank"
+                rel="noopener noreferrer">Venare Nuvali</a></li>
+            <li><a href="https://maps.google.com/?q=BGC+Turf+Taguig" target="_blank" rel="noopener noreferrer">BGC
+                Turf</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#schedule">Training Schedule</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Azkals Development Academy. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <span>Privacy Policy</span>
+          <span>Terms of Service</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+
+</html>
