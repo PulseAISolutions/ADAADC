@@ -2143,8 +2143,12 @@ button {
         gap: 8px;
     }
 
-    .programs-grid {
-        grid-template-columns: repeat(2, 1fr);
+    /* Center the odd 5th card on tablet/large mobile when in 2-col layout */
+    .programs-grid>*:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+        justify-self: center;
+        max-width: 400px;
+        width: 100%;
     }
 
     .form-row {
