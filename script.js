@@ -13,6 +13,14 @@
 
 'use strict';
 
+// ---------------------------------------------------------
+// UI POLISH: Force top-scroll on page refresh!
+// ---------------------------------------------------------
+if (window.history && history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
 /* ==============================================
    SECURITY: Input Sanitization Utilities
    ============================================== */
@@ -301,39 +309,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* -- Card Number Formatting (digits only, grouped by 4) -- */
-    const cardNumberInput = document.getElementById('card-number');
-    if (cardNumberInput) {
-        cardNumberInput.addEventListener('input', (e) => {
-            let val = Security.sanitizeNumeric(e.target.value);
-            val = val.replace(/\s/g, '').substring(0, 16);
-            val = val.replace(/(.{4})/g, '$1 ').trim();
-            e.target.value = val;
-        });
-    }
-
-    /* -- Expiry Formatting -- */
-    const cardExpiryInput = document.getElementById('card-expiry');
-    if (cardExpiryInput) {
-        cardExpiryInput.addEventListener('input', (e) => {
-            let val = e.target.value.replace(/\D/g, '');
-            if (val.length >= 2) {
-                val = val.substring(0, 2) + ' / ' + val.substring(2, 4);
-            }
-            e.target.value = val;
-        });
-    }
-
-    /* -- CVV: digits only -- */
-    const cardCvvInput = document.getElementById('card-cvv');
-    if (cardCvvInput) {
-        cardCvvInput.addEventListener('input', (e) => {
-            e.target.value = Security.sanitizeNumeric(e.target.value).replace(/\s/g, '').substring(0, 4);
-        });
-    }
-
     /* ==============================================
-       FORM SUBMISSION → MAILTO + PAYMONGO (FUTURE)
+       FORM SUBMISSION → MAILTO & MANNYPAY (FUTURE)
        ============================================== */
 
     const submitRateLimit = Security.createRateLimiter(5000); // 5s cooldown
@@ -359,17 +336,10 @@ document.addEventListener('DOMContentLoaded', () => {
             program: Security.sanitizeText(programSelect.options[programSelect.selectedIndex].text.split(' — ')[0]),
             location: Security.sanitizeText(locationSelect.value),
             amount: formatPeso(selectedPrice),
-            paymentMethod: document.querySelector('.method-btn.active')?.dataset.method || 'card',
+            paymentMethod: 'mannypay',
+            mannyPayMobile: Security.sanitizePhone(document.getElementById('mannypay-mobile').value),
             nonce: SESSION_NONCE
         };
-
-        // Add payment-specific data
-        if (formData.paymentMethod === 'gcash') {
-            formData.gcashRef = Security.sanitizeText(document.getElementById('gcash-ref').value);
-        }
-        // NOTE: Card data is NOT included in the mailto.
-        // Card payments will be processed securely via PayMongo's client-side SDK
-        // (to be integrated). Card numbers never touch our servers or email.
 
         /* ------------------------------------------------
            PAYMONGO INTEGRATION (FUTURE)
@@ -408,8 +378,8 @@ document.addEventListener('DOMContentLoaded', () => {
             `Program: ${formData.program}\n` +
             `Location: ${formData.location}\n` +
             `Amount: ${formData.amount}\n` +
-            `Payment Method: ${formData.paymentMethod === 'card' ? 'Credit/Debit Card' : 'GCash'}\n` +
-            (formData.gcashRef ? `GCash Ref #: ${formData.gcashRef}\n` : '') +
+            `Payment Method: MannyPay\n` +
+            `MannyPay Mobile: ${formData.mannyPayMobile}\n` +
             `\n---\nSubmitted: ${new Date().toLocaleString()}\n` +
             `Session: ${formData.nonce.substring(0, 8)}\n`
         );
@@ -433,6 +403,161 @@ document.addEventListener('DOMContentLoaded', () => {
                 step1.style.display = 'block';
                 btnToPayment.disabled = true;
                 form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 3000);
+        }, 1500);
+    });
+
+    /* ==============================================
+       SHOPPING CART LOGIC
+       ============================================== */
+    let cart = [];
+    const cartFab = document.getElementById('cart-fab');
+    const cartBadge = document.getElementById('cart-badge');
+    const cartModal = document.getElementById('cart-modal');
+    const closeCartBtn = document.getElementById('close-cart');
+    const btnKeepShopping = document.getElementById('btn-keep-shopping');
+    const btnCheckout = document.getElementById('btn-checkout');
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartTotalPrice = document.getElementById('cart-total-price');
+
+    function updateCartUI() {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartBadge.innerText = totalItems;
+        if (totalItems > 0) {
+            cartFab.style.display = 'flex';
+        } else {
+            cartFab.style.display = 'none';
+            cartModal.classList.remove('active');
+        }
+
+        cartItemsContainer.innerHTML = '';
+        let total = 0;
+        cart.forEach(item => {
+            total += item.price * item.quantity;
+            const el = document.createElement('div');
+            el.className = 'cart-item';
+            el.style = "display: flex; align-items: center; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--gray-100);";
+            el.innerHTML = `
+                <img src="${item.img}" alt="${item.name}" style="width: 60px; height: 60px; object-fit: contain; border-radius: 4px; border: 1px solid var(--gray-200); padding: 4px; margin-right: 16px; background: white;">
+                <div class="cart-item-details" style="flex-grow: 1;">
+                    <div class="cart-item-title" style="font-weight: bold; color: var(--navy); margin-bottom: 4px; font-size: 0.95rem;">${item.name}</div>
+                    <div class="cart-item-price" style="color: var(--red); font-size: 0.9rem; font-weight: bold;">₱${item.price.toLocaleString()}</div>
+                </div>
+                <div class="cart-item-quantity" style="display: flex; align-items: center; gap: 10px;">
+                    <button type="button" class="qty-btn minus" data-id="${item.id}" style="background: var(--gray-100); border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: bold;">-</button>
+                    <span style="font-weight: 600;">${item.quantity}</span>
+                    <button type="button" class="qty-btn plus" data-id="${item.id}" style="background: var(--gray-100); border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: bold;">+</button>
+                </div>
+            `;
+            cartItemsContainer.appendChild(el);
+        });
+        cartTotalPrice.innerText = '₱' + total.toLocaleString();
+
+        document.querySelectorAll('.qty-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = e.target.dataset.id;
+                const isPlus = e.target.classList.contains('plus');
+                const item = cart.find(i => i.id === id);
+                if (item) {
+                    if (isPlus) item.quantity++;
+                    else item.quantity--;
+                    
+                    if (item.quantity <= 0) {
+                        cart = cart.filter(i => i.id !== id);
+                    }
+                    updateCartUI();
+                }
+            });
+        });
+    }
+
+    // Add to cart buttons hook
+    document.querySelectorAll('.btn-add-cart').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const id = btn.dataset.id;
+            const name = btn.dataset.name;
+            const price = parseInt(btn.dataset.price);
+            const img = btn.dataset.img;
+
+            const existing = cart.find(i => i.id === id);
+            if (existing) {
+                existing.quantity++;
+            } else {
+                cart.push({ id, name, price, img, quantity: 1 });
+            }
+            updateCartUI();
+            
+            // Visual feedback
+            const oldText = btn.innerText;
+            btn.innerText = '✓ Added to Cart';
+            btn.style.background = '#22c55e';
+            btn.style.borderColor = '#22c55e';
+            setTimeout(() => {
+                btn.innerText = oldText;
+                btn.style.background = '';
+                btn.style.borderColor = '';
+            }, 1000);
+        });
+    });
+
+    if(cartFab) cartFab.addEventListener('click', () => cartModal.classList.add('active'));
+    if(closeCartBtn) closeCartBtn.addEventListener('click', () => cartModal.classList.remove('active'));
+    if(btnKeepShopping) btnKeepShopping.addEventListener('click', () => cartModal.classList.remove('active'));
+
+    // Checkout Hook!
+    const merchCheckoutModal = document.getElementById('merch-checkout-modal');
+    const closeMerchCheckoutBtn = document.getElementById('close-merch-checkout');
+    const merchCheckoutForm = document.getElementById('merch-checkout-form');
+    
+    if(btnCheckout) btnCheckout.addEventListener('click', () => {
+        if (cart.length === 0) return;
+        cartModal.classList.remove('active');
+        
+        merchCheckoutModal.classList.add('active');
+        
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        document.getElementById('merch-checkout-total').innerText = '₱' + total.toLocaleString();
+        document.getElementById('btn-merch-pay-amount').innerText = '₱' + total.toLocaleString();
+    });
+
+    if(closeMerchCheckoutBtn) closeMerchCheckoutBtn.addEventListener('click', () => {
+        merchCheckoutModal.classList.remove('active');
+    });
+
+    if(merchCheckoutForm) merchCheckoutForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('merch-customer-name').value;
+        const contact = document.getElementById('merch-contact-number').value;
+        const mobile = document.getElementById('merch-mannypay-mobile').value;
+        
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        
+        let itemsList = '';
+        cart.forEach(item => {
+            itemsList += `- ${item.quantity}x ${item.name} (₱${item.price.toLocaleString()})%0D%0A`;
+        });
+        
+        const subject = encodeURIComponent(`New ADA Merch Order from ${name} (MannyPay)`);
+        const body = `New Merch Order Details:%0D%0A%0D%0ACustomer Name: ${encodeURIComponent(name)}%0D%0AContact Number: ${encodeURIComponent(contact)}%0D%0A%0D%0A--- ITEM SUMMARY ---%0D%0A${itemsList}%0D%0A%0D%0ATOTAL AMOUNT: ₱${total.toLocaleString()}%0D%0A%0D%0A--- PAYMENT (MANNYPAY) ---%0D%0APayment via MannyPay Mobile No: ${encodeURIComponent(mobile)}`;
+        
+        const mailtoLink = `mailto:azkalsdevelopmentacademy@gmail.com?subject=${subject}&body=${body}`;
+        
+        const btnPay = document.getElementById('btn-merch-pay');
+        const oldText = btnPay.innerHTML;
+        btnPay.innerHTML = '✅ Order Sent!';
+        btnPay.style.background = '#22c55e';
+        
+        setTimeout(() => {
+            window.location.href = mailtoLink;
+            
+            setTimeout(() => {
+                btnPay.innerHTML = oldText;
+                btnPay.style.background = 'var(--blue)';
+                merchCheckoutModal.classList.remove('active');
+                cart = []; 
+                updateCartUI();
+                merchCheckoutForm.reset();
             }, 3000);
         }, 1500);
     });
