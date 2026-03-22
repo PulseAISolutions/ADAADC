@@ -94,6 +94,9 @@ for (t, l, ts), v in sorted_cards:
     if "Philippines" in city and len(parts) >= 2:
         city = parts[-2]
     
+    # Clean up leading/trailing zip codes or numbers from city name
+    city = re.sub(r'^\d+\s+', '', city).strip()
+    
     badge_color = "red" if ("15" in age_group or "17" in age_group or "All" in age_group) else ""
     badge_html = f'<span class="schedule-badge {badge_color}">{age_group}</span>' if badge_color else f'<span class="schedule-badge">{age_group}</span>'
     card_class = "schedule-card accent-red" if badge_color == "red" else "schedule-card"
