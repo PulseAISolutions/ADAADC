@@ -2048,6 +2048,8 @@ button {
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */
+
+/* --- Tablet (1024px) --- */
 @media (max-width: 1024px) {
     .hero .container {
         flex-direction: column;
@@ -2079,8 +2081,18 @@ button {
         grid-template-columns: 1fr;
     }
 
+    .about-content .section-label,
+    .about-content .section-title {
+        text-align: center;
+        justify-content: center;
+    }
+
     .alumni .container {
         grid-template-columns: 1fr;
+    }
+
+    .alumni-content {
+        text-align: center;
     }
 
     .alumni-image {
@@ -2090,9 +2102,21 @@ button {
     .footer-grid {
         grid-template-columns: 1fr 1fr;
     }
+
+    /* Merch grid */
+    #merch-grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important;
+        gap: 24px !important;
+        padding: 40px 0 !important;
+    }
 }
 
+/* --- Mobile landscape & small tablets (768px) --- */
 @media (max-width: 768px) {
+
+    .container {
+        padding: 0 16px;
+    }
 
     .nav-links,
     .header .btn-join {
@@ -2103,12 +2127,36 @@ button {
         display: flex;
     }
 
+    .hero {
+        min-height: auto;
+        padding-bottom: 40px;
+    }
+
+    .hero .container {
+        gap: 30px;
+        padding-top: calc(var(--header-height) + 20px);
+        padding-bottom: 40px;
+    }
+
     .hero-heading {
         font-size: 2.8rem;
     }
 
+    .hero-badge {
+        font-size: 0.78rem;
+        padding: 6px 16px;
+    }
+
     .section-title {
         font-size: 2rem;
+    }
+
+    .section-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .stats {
+        padding: 30px 0;
     }
 
     .stats .container {
@@ -2122,6 +2170,18 @@ button {
 
     .stat-number {
         font-size: 2.2rem;
+    }
+
+    .about {
+        padding: 60px 0;
+    }
+
+    .about .container {
+        gap: 30px;
+    }
+
+    .programs {
+        padding: 60px 0;
     }
 
     .program-card {
@@ -2146,8 +2206,6 @@ button {
         gap: 8px;
     }
 
-
-
     .form-row {
         grid-template-columns: 1fr;
     }
@@ -2161,11 +2219,66 @@ button {
         gap: 12px;
         text-align: center;
     }
+
+    /* Merch grid */
+    #merch-grid-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 16px !important;
+        padding: 30px 0 !important;
+    }
+
+    .merch-title {
+        font-size: 1rem;
+    }
+
+    .merch-details {
+        padding: 16px;
+    }
+
+    /* Cart & Checkout modals */
+    .cart-modal-content {
+        width: 95% !important;
+        max-height: 90vh !important;
+        padding: 16px !important;
+        border-radius: 12px !important;
+    }
+
+    /* Alumni */
+    .alumni-achievements {
+        justify-content: center;
+    }
+
+    .alumni-buttons {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* Registration */
+    .registration {
+        padding: 60px 0;
+    }
+
+    .registration-form {
+        padding: 24px 16px;
+    }
+
+    /* Merch marquee */
+    .merch-marquee-content img {
+        height: 280px;
+    }
 }
 
+/* --- Mobile portrait (480px) --- */
 @media (max-width: 480px) {
-    .program-card {
-        flex: 0 0 100%;
+
+    .container {
+        padding: 0 12px;
+    }
+
+    .hero .container {
+        padding-top: calc(var(--header-height) + 10px);
+        padding-bottom: 30px;
+        gap: 20px;
     }
 
     .hero-heading {
@@ -2180,18 +2293,162 @@ button {
     .btn-primary,
     .btn-ghost {
         justify-content: center;
+        padding: 12px 24px;
+        font-size: 0.95rem;
+    }
+
+    .hero-card {
+        max-width: 100%;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    .section-subtitle {
+        font-size: 0.88rem;
+    }
+
+    .stats {
+        padding: 24px 0;
     }
 
     .stats .container {
         grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .stat-number {
+        font-size: 1.8rem;
+    }
+
+    .stat-label {
+        font-size: 0.68rem;
+        letter-spacing: 1px;
+    }
+
+    .about {
+        padding: 40px 0;
+    }
+
+    .about-text {
+        font-size: 0.92rem;
+    }
+
+    .about-feature {
+        padding: 10px 12px;
+    }
+
+    .about-feature span {
+        font-size: 0.88rem;
+    }
+
+    .programs {
+        padding: 40px 0;
+    }
+
+    .program-card {
+        flex: 0 0 100%;
+    }
+
+    /* Merch grid — single column on small phones */
+    #merch-grid-container {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        padding: 20px 0 !important;
+    }
+
+    .merch-details {
+        padding: 14px;
+    }
+
+    .merch-title {
+        font-size: 0.95rem;
+    }
+
+    .merch-price {
+        font-size: 1.15rem;
+        margin-bottom: 16px;
+    }
+
+    .btn-add-cart {
+        padding: 12px;
+        font-size: 0.92rem;
+    }
+
+    .merch-size-select {
+        padding: 6px !important;
+        font-size: 0.85rem !important;
+    }
+
+    /* Cart full-screen on small phones */
+    .cart-modal-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: 100vh !important;
+        border-radius: 0 !important;
+        padding: 14px !important;
+        height: 100vh;
+    }
+
+    .cart-modal-header h2 {
+        font-size: 1.2rem;
     }
 
     .gallery-grid {
         grid-template-columns: 1fr;
     }
 
+    .registration {
+        padding: 40px 0;
+    }
+
     .registration-form {
-        padding: 24px 20px;
+        padding: 20px 14px;
+    }
+
+    .footer {
+        padding: 40px 0 20px;
+    }
+
+    .footer-grid {
+        gap: 24px;
+    }
+
+    .alumni-content {
+        padding: 0;
+    }
+
+    .promo-grid {
+        gap: 12px;
+    }
+
+    /* Merch marquee */
+    .merch-marquee-content img {
+        height: 200px;
+    }
+}
+
+/* --- Very small phones (360px and below) --- */
+@media (max-width: 360px) {
+    .hero-heading {
+        font-size: 1.9rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+    }
+
+    .cart-fab {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        bottom: 20px;
+        right: 20px;
     }
 }
 
@@ -2272,13 +2529,107 @@ button {
     100% { transform: translateX(-50%); }
 }
 /* ========== CART UI ========== */
-.cart-fab { position: fixed; bottom: 30px; right: 30px; background: var(--red); color: white; width: 60px; height: 60px; border-radius: 50%; border: none; font-size: 24px; box-shadow: 0 4px 14px rgba(0,0,0,0.3); cursor: pointer; z-index: 999; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
-.cart-fab:hover { transform: scale(1.05); }
-.cart-badge { position: absolute; top: -5px; right: -5px; background: #000; color: #fff; font-size: 12px; font-weight: bold; height: 22px; min-width: 22px; border-radius: 11px; display: flex; align-items: center; justify-content: center; padding: 0 4px; }
-.cart-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: none; align-items: center; justify-content: center; }
-.cart-modal.active { display: flex; }
-.cart-modal-content { background: #fff; width: 90%; max-width: 500px; border-radius: var(--radius-md); padding: 24px; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; max-height: 80vh; }
-.cart-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--gray-200); padding-bottom: 10px; }
-.btn-close { background: none; border: none; font-size: 28px; cursor: pointer; color: var(--gray-500); }
-.cart-items { flex-grow: 1; overflow-y: auto; margin-bottom: 20px; }
-.cart-modal-footer { border-top: 1px solid var(--gray-200); padding-top: 20px; }
+.cart-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--red);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    font-size: 24px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    cursor: pointer;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+.cart-fab:hover {
+    transform: scale(1.05);
+}
+
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #000;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    height: 22px;
+    min-width: 22px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+}
+
+.cart-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-modal.active {
+    display: flex;
+}
+
+.cart-modal-content {
+    background: #fff;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--shadow-xl);
+    display: flex;
+    flex-direction: column;
+    max-height: 85vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.cart-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--gray-200);
+    padding-bottom: 10px;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 1;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--gray-500);
+}
+
+.cart-items {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.cart-modal-footer {
+    border-top: 1px solid var(--gray-200);
+    padding-top: 20px;
+}
+

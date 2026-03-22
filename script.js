@@ -575,17 +575,50 @@ document.addEventListener('DOMContentLoaded', () => {
     if(merchCheckoutForm) merchCheckoutForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
+        // ============================================================
+        // GOOGLE SHEETS WEBHOOK URL
+        // Replace the URL below with your deployed Google Apps Script web app URL.
+        // See the setup guide in the implementation plan or walkthrough.
+        // ============================================================
+        const GOOGLE_SHEETS_WEBHOOK_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
         const name = document.getElementById('merch-customer-name').value;
         const contact = document.getElementById('merch-contact-number').value;
         const branch = document.getElementById('merch-pickup-branch').value;
         
         const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         
+        // Build items list for email
         let itemsList = '';
+        let itemsForSheet = [];
         cart.forEach(item => {
             const sizeInfo = item.size ? ` [${item.size}]` : '';
             itemsList += `- ${item.quantity}x ${item.name}${sizeInfo} (₱${item.price.toLocaleString()})%0D%0A`;
+            itemsForSheet.push(`${item.quantity}x ${item.name}${sizeInfo} @₱${item.price.toLocaleString()}`);
         });
+
+        // ---- LOG TO GOOGLE SHEETS (non-blocking) ----
+        if (GOOGLE_SHEETS_WEBHOOK_URL && GOOGLE_SHEETS_WEBHOOK_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+            try {
+                fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        timestamp: new Date().toISOString(),
+                        customerName: name,
+                        contactNumber: contact,
+                        pickupBranch: branch,
+                        items: itemsForSheet.join(' | '),
+                        totalAmount: total,
+                        status: 'Pending'
+                    })
+                });
+                console.log('Order logged to Google Sheets.');
+            } catch (err) {
+                console.warn('Google Sheets logging failed (non-blocking):', err);
+            }
+        }
         
         const btnPay = document.getElementById('btn-merch-pay');
         const oldText = btnPay.innerHTML;
