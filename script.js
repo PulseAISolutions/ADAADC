@@ -193,34 +193,80 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==============================================
-       MULTI-STEP REGISTRATION + PAYMENT FORM
+       REGISTRATION FORM — LOCATION-BASED FLOW
        ============================================== */
 
     const form = document.getElementById('registration-form');
     if (!form) return;
 
-    const step1 = document.getElementById('form-step-1');
     const btnSubmit = document.getElementById('btn-submit-registration');
 
-    const programSelect = document.getElementById('program-select');
     const playerNameInput = document.getElementById('player-name');
     const birthYearInput = document.getElementById('birth-year');
     const guardianNameInput = document.getElementById('guardian-name');
     const contactInput = document.getElementById('contact-number');
     const locationSelect = document.getElementById('location-select');
+    const programSelect = document.getElementById('program-select');
+    const adaMainBranchSelect = document.getElementById('ada-main-branch');
 
-    /* -- Enable Submit only when all fields are filled -- */
-    const step1Inputs = [playerNameInput, birthYearInput, guardianNameInput, contactInput, programSelect, locationSelect];
+    const programRow = document.getElementById('program-row');
+    const adaMainBranchRow = document.getElementById('ada-main-branch-row');
+    const quotationBanner = document.getElementById('quotation-banner');
 
-    const checkStep1 = () => {
-        const allFilled = step1Inputs.every(el => el && el.value.trim() !== '');
+    /* -- Track which flow we're in -- */
+    let isAdaMain = false;
+
+    /* -- Location Change Handler -- */
+    if (locationSelect) {
+        locationSelect.addEventListener('change', () => {
+            const loc = locationSelect.value;
+            isAdaMain = (loc === 'ADA Main');
+
+            if (isAdaMain) {
+                // Show branch sub-select + program/pricing
+                adaMainBranchRow.style.display = '';
+                programRow.style.display = '';
+                quotationBanner.style.display = 'none';
+                programSelect.required = true;
+                adaMainBranchSelect.required = true;
+                btnSubmit.textContent = 'Submit Registration →';
+            } else {
+                // Hide branch + program, show quotation banner
+                adaMainBranchRow.style.display = 'none';
+                programRow.style.display = 'none';
+                quotationBanner.style.display = 'block';
+                programSelect.required = false;
+                adaMainBranchSelect.required = false;
+                // Reset hidden selects
+                programSelect.selectedIndex = 0;
+                adaMainBranchSelect.selectedIndex = 0;
+                btnSubmit.textContent = 'Request Quotation →';
+            }
+            checkFormCompletion();
+        });
+    }
+
+    /* -- Enable Submit only when required fields are filled -- */
+    const baseInputs = [playerNameInput, birthYearInput, guardianNameInput, contactInput, locationSelect];
+
+    const checkFormCompletion = () => {
+        // Always check base fields
+        let allFilled = baseInputs.every(el => el && el.value.trim() !== '');
+
+        // If ADA Main, also require branch + program
+        if (isAdaMain) {
+            if (!adaMainBranchSelect || !adaMainBranchSelect.value.trim()) allFilled = false;
+            if (!programSelect || !programSelect.value.trim()) allFilled = false;
+        }
+
         if (btnSubmit) btnSubmit.disabled = !allFilled;
     };
 
-    step1Inputs.forEach(el => {
+    // Listen on all inputs
+    [...baseInputs, programSelect, adaMainBranchSelect].forEach(el => {
         if (el) {
-            el.addEventListener('input', checkStep1);
-            el.addEventListener('change', checkStep1);
+            el.addEventListener('input', checkFormCompletion);
+            el.addEventListener('change', checkFormCompletion);
         }
     });
 
@@ -246,46 +292,47 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Validate all fields
+        // Validate required fields
         let valid = true;
-        step1Inputs.forEach(el => {
+        const fieldsToValidate = isAdaMain
+            ? [...baseInputs, programSelect, adaMainBranchSelect]
+            : baseInputs;
+
+        fieldsToValidate.forEach(el => {
+            const wrapper = el.closest('.form-input');
             if (!el.value.trim()) {
-                el.closest('.form-input').style.borderColor = '#e31e24';
+                if (wrapper) wrapper.style.borderColor = '#e31e24';
                 valid = false;
             } else {
-                el.closest('.form-input').style.borderColor = '';
+                if (wrapper) wrapper.style.borderColor = '';
             }
         });
         if (!valid) return;
+
+        const playerName = Security.sanitizeText(playerNameInput.value);
+        const contactNumber = Security.sanitizePhone(contactInput.value);
+        const location = Security.sanitizeText(locationSelect.value);
 
         if (btnSubmit) {
             btnSubmit.innerHTML = '⏳ Generating Receipt...';
             btnSubmit.disabled = true;
         }
 
-        const program = Security.sanitizeText(programSelect.options[programSelect.selectedIndex].text);
-        const playerName = Security.sanitizeText(playerNameInput.value);
-        const contactNumber = Security.sanitizePhone(contactInput.value);
-        const location = Security.sanitizeText(locationSelect.value);
-
         // --- Screenshot Generation ---
         try {
-            // Apply proper padding to form container for screenshot readability
             const formContainer = document.getElementById('form-step-1');
             const originalPadding = formContainer.style.padding;
-            const originalBorder = formContainer.style.border;
-            const originalRadius = formContainer.style.borderRadius;
             const originalMargin = formContainer.style.margin;
-            
+            const originalRadius = formContainer.style.borderRadius;
+
             formContainer.style.padding = '40px';
             formContainer.style.backgroundColor = '#ffffff';
             formContainer.style.margin = '0';
             formContainer.style.borderRadius = '0';
 
-            // Temporarily hide the submit button for the screenshot
+            // Temporarily hide the submit button + quotation banner for screenshot
             if (btnSubmit) btnSubmit.style.display = 'none';
 
-            // Give the browser a tick to apply styles
             await new Promise(res => setTimeout(res, 50));
 
             const canvas = await html2canvas(formContainer, {
@@ -301,7 +348,6 @@ document.addEventListener('DOMContentLoaded', () => {
             formContainer.style.borderRadius = originalRadius;
             if (btnSubmit) btnSubmit.style.display = 'block';
 
-            // Trigger Image Download
             const imageURL = canvas.toDataURL("image/png");
             const link = document.createElement('a');
             link.download = `ADA_Registration_${playerName.replace(/\s+/g, '_')}.png`;
@@ -309,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            
+
         } catch (error) {
             console.error("Screenshot generation failed: ", error);
         }
@@ -317,20 +363,43 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- Mailto Generation ---
         if (btnSubmit) btnSubmit.innerHTML = '⏳ Processing Email...';
 
-        const subject = encodeURIComponent(`ADA Registration: ${playerName} — ${program.split('—')[0].trim()}`);
-        const body = encodeURIComponent(
-            `NEW REGISTRATION\n` +
-            `================\n\n` +
-            `Player Name: ${playerName}\n` +
-            `Birth Year: ${Security.sanitizeText(birthYearInput.value)}\n` +
-            `Parent/Guardian: ${Security.sanitizeText(guardianNameInput.value)}\n` +
-            `Contact: ${contactNumber}\n` +
-            `Program: ${program}\n` +
-            `Location: ${location}\n` +
-            `\n---\nSubmitted: ${new Date().toLocaleString()}\n` +
-            `Session: ${SESSION_NONCE.substring(0, 8)}\n\n` +
-            `(Note: You can attach the downloaded screenshot of your registration details to this email if desired)`
-        );
+        let subject, body;
+
+        if (isAdaMain) {
+            // Full registration with program + branch
+            const program = Security.sanitizeText(programSelect.options[programSelect.selectedIndex].text);
+            const branch = Security.sanitizeText(adaMainBranchSelect.options[adaMainBranchSelect.selectedIndex].text);
+
+            subject = encodeURIComponent(`ADA Registration: ${playerName} — ${program.split('—')[0].trim()}`);
+            body = encodeURIComponent(
+                `NEW REGISTRATION\n` +
+                `================\n\n` +
+                `Player Name: ${playerName}\n` +
+                `Birth Year: ${Security.sanitizeText(birthYearInput.value)}\n` +
+                `Parent/Guardian: ${Security.sanitizeText(guardianNameInput.value)}\n` +
+                `Contact: ${contactNumber}\n` +
+                `Program: ${program}\n` +
+                `Location: ADA Main — ${branch}\n` +
+                `\n---\nSubmitted: ${new Date().toLocaleString()}\n` +
+                `Session: ${SESSION_NONCE.substring(0, 8)}\n\n` +
+                `(Please attach the downloaded screenshot of your registration details to this email)`
+            );
+        } else {
+            // Quotation request — no pricing
+            subject = encodeURIComponent(`ADA Quotation Request: ${playerName} — ${location}`);
+            body = encodeURIComponent(
+                `QUOTATION REQUEST\n` +
+                `=================\n\n` +
+                `Player Name: ${playerName}\n` +
+                `Birth Year: ${Security.sanitizeText(birthYearInput.value)}\n` +
+                `Parent/Guardian: ${Security.sanitizeText(guardianNameInput.value)}\n` +
+                `Contact: ${contactNumber}\n` +
+                `Preferred Location: ${location}\n` +
+                `\n---\nSubmitted: ${new Date().toLocaleString()}\n` +
+                `Session: ${SESSION_NONCE.substring(0, 8)}\n\n` +
+                `Hi! I'm interested in enrolling at the ${location} branch. Could you please provide the available programs, schedules, and pricing? Thank you!`
+            );
+        }
 
         const mailtoLink = `mailto:azkalsdevelopmentacademy@gmail.com?subject=${subject}&body=${body}`;
 
@@ -338,7 +407,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = mailtoLink;
 
             if (btnSubmit) {
-                btnSubmit.innerHTML = '✅ Registration Complete!';
+                btnSubmit.innerHTML = isAdaMain ? '✅ Registration Complete!' : '✅ Quotation Sent!';
                 btnSubmit.style.background = '#22c55e';
                 btnSubmit.style.borderColor = '#22c55e';
 
@@ -348,6 +417,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     btnSubmit.style.borderColor = '';
                     form.reset();
                     btnSubmit.disabled = true;
+                    // Reset visibility
+                    programRow.style.display = 'none';
+                    adaMainBranchRow.style.display = 'none';
+                    quotationBanner.style.display = 'none';
+                    isAdaMain = false;
                 }, 3000);
             } else {
                 form.reset();

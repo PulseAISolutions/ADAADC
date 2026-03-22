@@ -10,7 +10,7 @@
 
   <!-- Security Headers -->
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://*.google.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.google.com; img-src 'self' data: https://*.googleusercontent.com https://*.google.com https://*.gstatic.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.paymongo.com https://*.google.com; frame-src 'self' https://calendar.google.com https://www.google.com https://accounts.google.com; form-action 'self' mailto:;" />
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://*.google.com https://apis.google.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.google.com; img-src 'self' data: https://*.googleusercontent.com https://*.google.com https://*.gstatic.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.paymongo.com https://*.google.com; frame-src 'self' https://calendar.google.com https://www.google.com https://accounts.google.com; form-action 'self' mailto:;" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
@@ -861,10 +861,46 @@
 
           <div class="form-row">
             <div class="form-group full">
+              <label>Preferred Training Location <span class="required">*</span></label>
+              <div class="form-input">
+                <span class="input-icon">📍</span>
+                <select id="location-select" required>
+                  <option value="" disabled selected>Select preferred location</option>
+                  <option value="ADA Main">ADA Main (MOA, McKinley, Venare)</option>
+                  <option value="Nuvali">Nuvali</option>
+                  <option value="Bacolod">Bacolod</option>
+                  <option value="San Carlos">San Carlos</option>
+                  <option value="Cebu">Cebu</option>
+                  <option value="Tagum">Tagum</option>
+                  <option value="Puentevedra">Puentevedra</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- ADA Main: Specific Branch Sub-Select (hidden by default) -->
+          <div class="form-row" id="ada-main-branch-row" style="display:none;">
+            <div class="form-group full">
+              <label>Select Branch <span class="required">*</span></label>
+              <div class="form-input">
+                <span class="input-icon">🏟️</span>
+                <select id="ada-main-branch" required>
+                  <option value="" disabled selected>Choose your branch</option>
+                  <option value="MOA">MOA Sky Football Pitch</option>
+                  <option value="McKinley">McKinley Hill Stadium</option>
+                  <option value="Venare">Venare Nuvali</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- ADA Main: Program & Pricing (hidden by default) -->
+          <div class="form-row" id="program-row" style="display:none;">
+            <div class="form-group full">
               <label>Select Program <span class="required">*</span></label>
               <div class="form-input">
                 <span class="input-icon">🏅</span>
-                <select id="program-select" required>
+                <select id="program-select">
                   <option value="" disabled selected>Choose your program</option>
                   <optgroup label="Pups Development (U5-U7)">
                     <option value="5000">Pups Development - Unlimited — ₱5,000</option>
@@ -887,23 +923,11 @@
             </div>
           </div>
 
-          <div class="form-row">
-            <div class="form-group full">
-              <label>Preferred Training Location <span class="required">*</span></label>
-              <div class="form-input">
-                <span class="input-icon">📍</span>
-                <select id="location-select" required>
-                  <option value="" disabled selected>Select preferred location</option>
-                  <option>ADA Main</option>
-                  <option>Nuvali</option>
-                  <option>Bacolod</option>
-                  <option>San Carlos</option>
-                  <option>Cebu</option>
-                  <option>TAGUM</option>
-                  <option>Puentevedra</option>
-                </select>
-              </div>
-            </div>
+          <!-- Non-ADA Main: Quotation Info Banner (hidden by default) -->
+          <div id="quotation-banner" style="display:none; background: linear-gradient(135deg, #f0f4ff, #e8f0fe); border: 2px solid var(--blue, #2563eb); border-radius: 12px; padding: 20px 24px; text-align: center; margin-bottom: 8px;">
+            <div style="font-size: 1.6rem; margin-bottom: 6px;">📩</div>
+            <h4 style="color: var(--navy, #1e293b); font-weight: 800; margin-bottom: 6px; font-size: 1.05rem;">Rates & Programs for Your Area</h4>
+            <p style="color: var(--gray-600, #4b5563); font-size: 0.9rem; line-height: 1.5; margin: 0;">Training rates vary by location. Submit this form and our team will reach out with the available programs, schedules, and pricing for your branch.</p>
           </div>
 
           <button type="submit" id="btn-submit-registration" class="btn-submit" disabled>Submit Registration →</button>
@@ -1006,7 +1030,7 @@
     </div>
   </footer>
 
-  <script src="./script.js"></script>
+
 
   <!-- Floating Cart -->
   <button id="cart-fab" class="cart-fab" style="display: none;">
@@ -1077,6 +1101,7 @@
           </button>
         </div>
       </form>
+    </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="./script.js?v=2"></script>
