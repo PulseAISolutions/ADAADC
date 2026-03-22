@@ -126,7 +126,7 @@
         <div class="stat-label">Year Founded</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number" data-target="3">0</div>
+        <div class="stat-number" data-target="7">0</div>
         <div class="stat-label">Branches Nationwide</div>
       </div>
       <div class="stat-item">
@@ -200,206 +200,300 @@
       <p class="section-subtitle" style="text-align:center; margin-bottom:40px;">Get the latest official gear and represent the academy wherever you go.</p>
 
       <!-- Merch Grid -->
-      <div class="merch-grid" id="merch-grid-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; padding: 40px 0;">
+      
+  <style>
+    #merch-grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 40px;
+      padding: 60px 0;
+    }
+    .merch-item {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    .merch-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    .merch-image-container {
+      background: linear-gradient(145deg, #111827, #1f2937);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1 / 1;
+      position: relative;
+      overflow: hidden;
+    }
+    .merch-image-container::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 150%; height: 150%;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .merch-item img {
+      max-height: 80%;
+      max-width: 80%;
+      object-fit: contain;
+      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      z-index: 2;
+    }
+    .merch-item:hover img {
+      transform: scale(1.12) rotate(-2deg);
+    }
+    .merch-details {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      background: white;
+    }
+    .merch-title {
+      font-size: 1.15rem;
+      color: var(--navy, #1e293b);
+      margin-bottom: 12px;
+      flex-grow: 1;
+      font-weight: 800;
+      line-height: 1.4;
+    }
+    .merch-price {
+      font-weight: 900;
+      color: var(--red, #ef4444);
+      margin-bottom: 24px;
+      font-size: 1.35rem;
+    }
+    .btn-add-cart {
+      padding: 14px;
+      font-size: 1rem;
+      width: 100%;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      background: var(--navy, #1e293b);
+      color: white;
+      border-radius: 8px;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-add-cart:hover {
+      background: var(--red, #ef4444);
+    }
+    .btn-add-cart:active {
+      transform: scale(0.98);
+    }
+  </style>
 
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_0_0.png?v=2" alt="Azkals Legacy in White (Cotton)" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
+<div class="merch-grid" id="merch-grid-container" >
+
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_0_0.png?v=2" alt="Azkals Legacy in White (Cotton)"/>
           </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Azkals Legacy in White (Cotton)</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱950</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_0_0.png" data-name="Azkals Legacy in White (Cotton)" data-price="950" data-img="./assets/merch/items/item_0_0.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
-          </div>
-        </div>
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_0_3.png?v=2" alt="Azkals Legacy in Black (Cotton)" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
-          </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Azkals Legacy in Black (Cotton)</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱950</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_0_3.png" data-name="Azkals Legacy in Black (Cotton)" data-price="950" data-img="./assets/merch/items/item_0_3.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
+          <div class="merch-details">
+            <h3 class="merch-title">Azkals Legacy in White (Cotton)</h3>
+            <p class="merch-price">₱950</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_0_0.png" data-name="Azkals Legacy in White (Cotton)" data-price="950" data-img="./assets/merch/items/item_0_0.png?v=2">Add to Cart</button>
           </div>
         </div>
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_0_2.png?v=2" alt="Azkals Legacy in Blue (Cotton)" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_0_3.png?v=2" alt="Azkals Legacy in Black (Cotton)"/>
           </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Azkals Legacy in Blue (Cotton)</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱950</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_0_2.png" data-name="Azkals Legacy in Blue (Cotton)" data-price="950" data-img="./assets/merch/items/item_0_2.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
-          </div>
-        </div>
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_0_1.png?v=2" alt="Azkals Legacy Hoodie" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
-          </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Azkals Legacy Hoodie</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱1,500</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_0_1.png" data-name="Azkals Legacy Hoodie" data-price="1500" data-img="./assets/merch/items/item_0_1.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
+          <div class="merch-details">
+            <h3 class="merch-title">Azkals Legacy in Black (Cotton)</h3>
+            <p class="merch-price">₱950</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_0_3.png" data-name="Azkals Legacy in Black (Cotton)" data-price="950" data-img="./assets/merch/items/item_0_3.png?v=2">Add to Cart</button>
           </div>
         </div>
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_1_0.png?v=2" alt="Azkals Legacy 1 (Sublimation)" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_0_2.png?v=2" alt="Azkals Legacy in Blue (Cotton)"/>
           </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Azkals Legacy 1 (Sublimation)</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱800</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_1_0.png" data-name="Azkals Legacy 1 (Sublimation)" data-price="800" data-img="./assets/merch/items/item_1_0.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
-          </div>
-        </div>
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_1_1.png?v=2" alt="Azkals Legacy 2 (Sublimation)" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
-          </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Azkals Legacy 2 (Sublimation)</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱800</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_1_1.png" data-name="Azkals Legacy 2 (Sublimation)" data-price="800" data-img="./assets/merch/items/item_1_1.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
+          <div class="merch-details">
+            <h3 class="merch-title">Azkals Legacy in Blue (Cotton)</h3>
+            <p class="merch-price">₱950</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_0_2.png" data-name="Azkals Legacy in Blue (Cotton)" data-price="950" data-img="./assets/merch/items/item_0_2.png?v=2">Add to Cart</button>
           </div>
         </div>
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_1_2.png?v=2" alt="Coaches Full Kit" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_0_1.png?v=2" alt="Azkals Legacy Hoodie"/>
           </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Coaches Full Kit</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱1,300</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_1_2.png" data-name="Coaches Full Kit" data-price="1300" data-img="./assets/merch/items/item_1_2.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
-          </div>
-        </div>
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_1_3.png?v=2" alt="Coaches Kit (Top only)" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
-          </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Coaches Kit (Top only)</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱800</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_1_3.png" data-name="Coaches Kit (Top only)" data-price="800" data-img="./assets/merch/items/item_1_3.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
+          <div class="merch-details">
+            <h3 class="merch-title">Azkals Legacy Hoodie</h3>
+            <p class="merch-price">₱1,500</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_0_1.png" data-name="Azkals Legacy Hoodie" data-price="1500" data-img="./assets/merch/items/item_0_1.png?v=2">Add to Cart</button>
           </div>
         </div>
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_2_4.png?v=2" alt="Azkals Jersey (White)" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_1_0.png?v=2" alt="Azkals Legacy 1 (Sublimation)"/>
           </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Azkals Jersey (White)</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱800</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_2_4.png" data-name="Azkals Jersey (White)" data-price="800" data-img="./assets/merch/items/item_2_4.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
-          </div>
-        </div>
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_2_5.png?v=2" alt="Azkals Jersey (Blue)" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
-          </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Azkals Jersey (Blue)</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱800</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_2_5.png" data-name="Azkals Jersey (Blue)" data-price="800" data-img="./assets/merch/items/item_2_5.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
+          <div class="merch-details">
+            <h3 class="merch-title">Azkals Legacy 1 (Sublimation)</h3>
+            <p class="merch-price">₱800</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_1_0.png" data-name="Azkals Legacy 1 (Sublimation)" data-price="800" data-img="./assets/merch/items/item_1_0.png?v=2">Add to Cart</button>
           </div>
         </div>
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_2_6.png?v=2" alt="Azkals Jersey (Black, Green & Yellow)" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_1_1.png?v=2" alt="Azkals Legacy 2 (Sublimation)"/>
           </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Azkals Jersey (Black, Green & Yellow)</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱800</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_2_6.png" data-name="Azkals Jersey (Black, Green & Yellow)" data-price="800" data-img="./assets/merch/items/item_2_6.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
-          </div>
-        </div>
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_2_7.png?v=2" alt="Azkals Jersey (Red)" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
-          </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Azkals Jersey (Red)</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱800</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_2_7.png" data-name="Azkals Jersey (Red)" data-price="800" data-img="./assets/merch/items/item_2_7.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
+          <div class="merch-details">
+            <h3 class="merch-title">Azkals Legacy 2 (Sublimation)</h3>
+            <p class="merch-price">₱800</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_1_1.png" data-name="Azkals Legacy 2 (Sublimation)" data-price="800" data-img="./assets/merch/items/item_1_1.png?v=2">Add to Cart</button>
           </div>
         </div>
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_3_8.png?v=2" alt="Azkals Jersey (Cream)" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_1_2.png?v=2" alt="Coaches Full Kit"/>
           </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Azkals Jersey (Cream)</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱800</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_3_8.png" data-name="Azkals Jersey (Cream)" data-price="800" data-img="./assets/merch/items/item_3_8.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
-          </div>
-        </div>
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_3_9.png?v=2" alt="Azkals Jersey (Dark Blue)" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
-          </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Azkals Jersey (Dark Blue)</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱800</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_3_9.png" data-name="Azkals Jersey (Dark Blue)" data-price="800" data-img="./assets/merch/items/item_3_9.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
+          <div class="merch-details">
+            <h3 class="merch-title">Coaches Full Kit</h3>
+            <p class="merch-price">₱1,300</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_1_2.png" data-name="Coaches Full Kit" data-price="1300" data-img="./assets/merch/items/item_1_2.png?v=2">Add to Cart</button>
           </div>
         </div>
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_3_10.png?v=2" alt="Azkals Jersey (Black, Red & Blue)" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_1_3.png?v=2" alt="Coaches Kit (Top only)"/>
           </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Azkals Jersey (Black, Red & Blue)</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱800</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_3_10.png" data-name="Azkals Jersey (Black, Red & Blue)" data-price="800" data-img="./assets/merch/items/item_3_10.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
-          </div>
-        </div>
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_3_11.png?v=2" alt="Azkals Jersey (Blue & Pink)" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
-          </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Azkals Jersey (Blue & Pink)</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱800</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_3_11.png" data-name="Azkals Jersey (Blue & Pink)" data-price="800" data-img="./assets/merch/items/item_3_11.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
+          <div class="merch-details">
+            <h3 class="merch-title">Coaches Kit (Top only)</h3>
+            <p class="merch-price">₱800</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_1_3.png" data-name="Coaches Kit (Top only)" data-price="800" data-img="./assets/merch/items/item_1_3.png?v=2">Add to Cart</button>
           </div>
         </div>
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_4_12.png?v=2" alt="Cut Socks in White" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_2_4.png?v=2" alt="Azkals Jersey (White)"/>
           </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Cut Socks in White</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱300</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_4_12.png" data-name="Cut Socks in White" data-price="300" data-img="./assets/merch/items/item_4_12.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
-          </div>
-        </div>
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_4_13.png?v=2" alt="Cut Socks in Red" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
-          </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Cut Socks in Red</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱300</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_4_13.png" data-name="Cut Socks in Red" data-price="300" data-img="./assets/merch/items/item_4_13.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
+          <div class="merch-details">
+            <h3 class="merch-title">Azkals Jersey (White)</h3>
+            <p class="merch-price">₱800</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_2_4.png" data-name="Azkals Jersey (White)" data-price="800" data-img="./assets/merch/items/item_2_4.png?v=2">Add to Cart</button>
           </div>
         </div>
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_4_14.png?v=2" alt="Cut Socks in Blue" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_2_5.png?v=2" alt="Azkals Jersey (Blue)"/>
           </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Cut Socks in Blue</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱300</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_4_14.png" data-name="Cut Socks in Blue" data-price="300" data-img="./assets/merch/items/item_4_14.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
+          <div class="merch-details">
+            <h3 class="merch-title">Azkals Jersey (Blue)</h3>
+            <p class="merch-price">₱800</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_2_5.png" data-name="Azkals Jersey (Blue)" data-price="800" data-img="./assets/merch/items/item_2_5.png?v=2">Add to Cart</button>
           </div>
         </div>
-        <div class="merch-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; text-align: center; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; display: flex; flex-direction: column;">
-          <div style="background: #000; padding: 10px; display: flex; align-items: center; justify-content: center; height: 260px;">
-            <img src="./assets/merch/items/item_4_15.png?v=2" alt="Cut Socks in Black" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_2_6.png?v=2" alt="Azkals Jersey (Black, Green & Yellow)"/>
           </div>
-          <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; flex-grow: 1; font-weight: 700;">Cut Socks in Black</h3>
-            <p style="font-weight: 800; color: var(--red); margin-bottom: 20px; font-size: 1.25rem;">₱300</p>
-            <button type="button" class="btn-primary btn-add-cart" data-id="item_4_15.png" data-name="Cut Socks in Black" data-price="300" data-img="./assets/merch/items/item_4_15.png?v=2" style="padding: 12px; font-size: 0.95rem; width: 100%; border:none; cursor:pointer; font-weight: bold; background: var(--navy);">Add to Cart</button>
+          <div class="merch-details">
+            <h3 class="merch-title">Azkals Jersey (Black, Green & Yellow)</h3>
+            <p class="merch-price">₱800</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_2_6.png" data-name="Azkals Jersey (Black, Green & Yellow)" data-price="800" data-img="./assets/merch/items/item_2_6.png?v=2">Add to Cart</button>
+          </div>
+        </div>
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_2_7.png?v=2" alt="Azkals Jersey (Red)"/>
+          </div>
+          <div class="merch-details">
+            <h3 class="merch-title">Azkals Jersey (Red)</h3>
+            <p class="merch-price">₱800</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_2_7.png" data-name="Azkals Jersey (Red)" data-price="800" data-img="./assets/merch/items/item_2_7.png?v=2">Add to Cart</button>
+          </div>
+        </div>
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_3_8.png?v=2" alt="Azkals Jersey (Cream)"/>
+          </div>
+          <div class="merch-details">
+            <h3 class="merch-title">Azkals Jersey (Cream)</h3>
+            <p class="merch-price">₱800</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_3_8.png" data-name="Azkals Jersey (Cream)" data-price="800" data-img="./assets/merch/items/item_3_8.png?v=2">Add to Cart</button>
+          </div>
+        </div>
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_3_9.png?v=2" alt="Azkals Jersey (Dark Blue)"/>
+          </div>
+          <div class="merch-details">
+            <h3 class="merch-title">Azkals Jersey (Dark Blue)</h3>
+            <p class="merch-price">₱800</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_3_9.png" data-name="Azkals Jersey (Dark Blue)" data-price="800" data-img="./assets/merch/items/item_3_9.png?v=2">Add to Cart</button>
+          </div>
+        </div>
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_3_10.png?v=2" alt="Azkals Jersey (Black, Red & Blue)"/>
+          </div>
+          <div class="merch-details">
+            <h3 class="merch-title">Azkals Jersey (Black, Red & Blue)</h3>
+            <p class="merch-price">₱800</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_3_10.png" data-name="Azkals Jersey (Black, Red & Blue)" data-price="800" data-img="./assets/merch/items/item_3_10.png?v=2">Add to Cart</button>
+          </div>
+        </div>
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_3_11.png?v=2" alt="Azkals Jersey (Blue & Pink)"/>
+          </div>
+          <div class="merch-details">
+            <h3 class="merch-title">Azkals Jersey (Blue & Pink)</h3>
+            <p class="merch-price">₱800</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_3_11.png" data-name="Azkals Jersey (Blue & Pink)" data-price="800" data-img="./assets/merch/items/item_3_11.png?v=2">Add to Cart</button>
+          </div>
+        </div>
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_4_12.png?v=2" alt="Cut Socks in White"/>
+          </div>
+          <div class="merch-details">
+            <h3 class="merch-title">Cut Socks in White</h3>
+            <p class="merch-price">₱300</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_4_12.png" data-name="Cut Socks in White" data-price="300" data-img="./assets/merch/items/item_4_12.png?v=2">Add to Cart</button>
+          </div>
+        </div>
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_4_13.png?v=2" alt="Cut Socks in Red"/>
+          </div>
+          <div class="merch-details">
+            <h3 class="merch-title">Cut Socks in Red</h3>
+            <p class="merch-price">₱300</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_4_13.png" data-name="Cut Socks in Red" data-price="300" data-img="./assets/merch/items/item_4_13.png?v=2">Add to Cart</button>
+          </div>
+        </div>
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_4_14.png?v=2" alt="Cut Socks in Blue"/>
+          </div>
+          <div class="merch-details">
+            <h3 class="merch-title">Cut Socks in Blue</h3>
+            <p class="merch-price">₱300</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_4_14.png" data-name="Cut Socks in Blue" data-price="300" data-img="./assets/merch/items/item_4_14.png?v=2">Add to Cart</button>
+          </div>
+        </div>
+        <div class="merch-item">
+          <div class="merch-image-container">
+            <img src="./assets/merch/items/item_4_15.png?v=2" alt="Cut Socks in Black"/>
+          </div>
+          <div class="merch-details">
+            <h3 class="merch-title">Cut Socks in Black</h3>
+            <p class="merch-price">₱300</p>
+            <button type="button" class="btn-primary btn-add-cart" data-id="item_4_15.png" data-name="Cut Socks in Black" data-price="300" data-img="./assets/merch/items/item_4_15.png?v=2">Add to Cart</button>
           </div>
         </div>
       </div>
@@ -422,61 +516,44 @@
       <p class="section-subtitle">Age-appropriate development pathways designed to nurture talent at every stage</p>
 
       <div class="programs-grid">
-        <!-- Mini Azkals -->
+        <!-- Pups Development -->
         <div class="program-card green">
           <div class="program-card-header">
-            <div class="program-icon">😊</div>
-            <span class="program-age">U6 - U8</span>
+            <div class="program-icon">🐶</div>
+            <span class="program-age">U5 - U7</span>
           </div>
-          <h3>Mini Azkals</h3>
-          <p>Foundation phase focusing on basic motor skills and football fundamentals in a fun, engaging environment.
-          </p>
+          <h3>Pups Development</h3>
+          <p>Foundation phase focusing on basic motor skills and football fundamentals in a fun, engaging environment.</p>
           <div class="program-tags">
             <span>Fun games</span><span>Basic skills</span><span>Teamwork</span>
           </div>
           <a href="#contact" class="program-link">Register Now →</a>
         </div>
 
-        <!-- Youth Academy -->
+        <!-- Foundation Program -->
         <div class="program-card blue">
           <div class="program-card-header">
-            <div class="program-icon">👥</div>
-            <span class="program-age">U9 - U12</span>
+            <div class="program-icon">⚽</div>
+            <span class="program-age">U9 - U15</span>
           </div>
-          <h3>Youth Academy</h3>
-          <p>Technical development with emphasis on ball control, passing, and game understanding through structured
-            training.</p>
+          <h3>Foundation Program</h3>
+          <p>Technical development with emphasis on ball control, passing, and game understanding through structured training.</p>
           <div class="program-tags">
             <span>Technical skills</span><span>Tactical awareness</span><span>Match play</span>
           </div>
           <a href="#contact" class="program-link">Register Now →</a>
         </div>
 
-        <!-- Elite Squad -->
+        <!-- Elite Development -->
         <div class="program-card red">
           <div class="program-card-header">
-            <div class="program-icon">⭐</div>
-            <span class="program-age">U13 - U16</span>
-          </div>
-          <h3>Elite Squad</h3>
-          <p>Advanced tactical training, physical conditioning, and competitive match experience for aspiring players.
-          </p>
-          <div class="program-tags">
-            <span>Advanced tactics</span><span>Strength training</span><span>Competitions</span>
-          </div>
-          <a href="#contact" class="program-link">Register Now →</a>
-        </div>
-
-        <!-- College Prep -->
-        <div class="program-card yellow">
-          <div class="program-card-header">
-            <div class="program-icon">🔗</div>
+            <div class="program-icon">⚡</div>
             <span class="program-age">U17 - U19</span>
           </div>
-          <h3>College Prep</h3>
-          <p>Preparation for collegiate and professional pathways with intensive training and exposure to scouts.</p>
+          <h3>Elite Development</h3>
+          <p>Advanced tactical training, physical conditioning, and competitive match experience for aspiring players.</p>
           <div class="program-tags">
-            <span>College prep</span><span>Pro exposure</span><span>Mentorship</span>
+            <span>Advanced tactics</span><span>Strength training</span><span>Competitions</span>
           </div>
           <a href="#contact" class="program-link">Register Now →</a>
         </div>
@@ -488,8 +565,7 @@
             <span class="program-age">All Ages</span>
           </div>
           <h3>ADA Girls Training</h3>
-          <p>Dedicated training program for female athletes. Fun, competitive, and empowering environment for all skill
-            levels.</p>
+          <p>Dedicated training program for female athletes. Fun, competitive, and empowering environment for all skill levels.</p>
           <div class="program-tags">
             <span>All ages</span><span>Girls only</span><span>Empowerment</span>
           </div>
@@ -503,19 +579,78 @@
   <section class="schedule fade-in" id="schedule">
     <div class="container">
       <div class="section-label">Training Schedule</div>
-      <h2 class="section-title" style="text-align:center;">LIVE <span class="highlight-blue">SCHEDULE</span></h2>
-      <p class="section-subtitle" style="text-align:center; max-width: 600px; margin: 0 auto 40px auto;">Stay up to date with our live training schedule across all ADA locations. Changes reflect automatically.</p>
-
-      <div class="calendar-container" style="max-width: 1000px; margin: 0 auto; box-shadow: var(--shadow-md); border-radius: var(--radius-md); overflow: hidden; background: white;">
-        <iframe src="https://calendar.google.com/calendar/embed?src=3f5f7a4ba6a92792bc4ed098c1bc9963025a5aeefa8917da177e1d1b4135edc8%40group.calendar.google.com&ctz=Asia%2FManila&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0&mode=AGENDA" style="border: 0" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
-      </div>
+      <h2 class="section-title" style="text-align:center;">TRAINING <span class="highlight-blue">SCHEDULE</span></h2>
+      <p class="section-subtitle" style="text-align:center; max-width: 600px; margin: 0 auto 40px auto;">Train at any of our locations across Metro Manila and South Luzon.</p>
       
-      <div style="text-align: center; margin-top: 20px;">
-        <p style="color: var(--gray-600); font-size: 0.9rem; margin-bottom: 15px;">If the calendar preview fails to securely load, make sure your Google Calendar is set to "Make available to public" in its settings, or click below to view it natively.</p>
-        <a href="https://calendar.google.com/calendar/u/0/r?cid=M2Y1ZjdhNGJhNmE5Mjc5MmJjNGVkMDk4YzFiYzk5NjMwMjVhNWFlZWZhODkxN2RhMTc3ZTFkMWI0MTM1ZWRjOEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&es=3&pli=1" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
-          📅 Open Live Google Calendar
-        </a>
+      <div class="schedule-grid">
+        <div class="schedule-card accent-red">
+          <div class="schedule-card-header">
+            <div>
+              <h3>McKinley Hill Stadium</h3>
+              <span class="dates">Tue</span>
+            </div>
+            <span class="schedule-badge red">U17 - U19</span>
+          </div>
+          <div style="font-size: 0.85rem; color: var(--navy); font-weight: 700; background: var(--gray-50); padding: 5px 10px; border-radius: 4px; border-left: 3px solid var(--blue); margin-bottom: 8px;">Dates: Mar 24, Mar 31, Apr 07</div>
+          <div class="schedule-detail"><span class="icon">🕐</span> 6:00 PM - 8:00 PM</div>
+          <div class="schedule-detail"><span class="icon">📍</span> Taguig</div>
+          <a href="https://maps.google.com/?q=McKinley%20Hill%20Stadium" target="_blank" class="schedule-directions" style="margin-top: 10px;">📤 Get Directions</a>
+        </div>
+        <div class="schedule-card accent-red">
+          <div class="schedule-card-header">
+            <div>
+              <h3>Venare Nuvali</h3>
+              <span class="dates">Wed & Fri</span>
+            </div>
+            <span class="schedule-badge red">U7-U15</span>
+          </div>
+          <div style="font-size: 0.85rem; color: var(--navy); font-weight: 700; background: var(--gray-50); padding: 5px 10px; border-radius: 4px; border-left: 3px solid var(--blue); margin-bottom: 8px;">Dates: Mar 25, Mar 27, Apr 01</div>
+          <div class="schedule-detail"><span class="icon">🕐</span> 5:00 PM - 7:00 PM</div>
+          <div class="schedule-detail"><span class="icon">📍</span> 4027 Laguna</div>
+          <a href="https://maps.google.com/?q=Venare%20Nuvali" target="_blank" class="schedule-directions" style="margin-top: 10px;">📤 Get Directions</a>
+        </div>
+        <div class="schedule-card">
+          <div class="schedule-card-header">
+            <div>
+              <h3>Vermosa Sports Hub</h3>
+              <span class="dates">Thu</span>
+            </div>
+            <span class="schedule-badge">U7-U13</span>
+          </div>
+          <div style="font-size: 0.85rem; color: var(--navy); font-weight: 700; background: var(--gray-50); padding: 5px 10px; border-radius: 4px; border-left: 3px solid var(--blue); margin-bottom: 8px;">Dates: Mar 26, Apr 02, Apr 09</div>
+          <div class="schedule-detail"><span class="icon">🕐</span> 6:00 PM - 8:00 PM</div>
+          
+          <a href="https://maps.google.com/?q=Vermosa%20Sports%20Hub" target="_blank" class="schedule-directions" style="margin-top: 10px;">📤 Get Directions</a>
+        </div>
+        <div class="schedule-card accent-red">
+          <div class="schedule-card-header">
+            <div>
+              <h3>MOA Sky Football Pitch</h3>
+              <span class="dates">Mon, Tue, Thu</span>
+            </div>
+            <span class="schedule-badge red">U7 - U15, U13 Girls</span>
+          </div>
+          <div style="font-size: 0.85rem; color: var(--navy); font-weight: 700; background: var(--gray-50); padding: 5px 10px; border-radius: 4px; border-left: 3px solid var(--blue); margin-bottom: 8px;">Dates: Mar 23, Mar 24, Mar 26</div>
+          <div class="schedule-detail"><span class="icon">🕐</span> 5:00 PM - 7:00 PM</div>
+          <div class="schedule-detail"><span class="icon">📍</span> MOA Sky Football</div>
+          <a href="https://maps.google.com/?q=MOA%20Sky%20Football%20Pitch" target="_blank" class="schedule-directions" style="margin-top: 10px;">📤 Get Directions</a>
+        </div>
+        <div class="schedule-card accent-red">
+          <div class="schedule-card-header">
+            <div>
+              <h3>MOA Sky Football Pitch</h3>
+              <span class="dates">Wed</span>
+            </div>
+            <span class="schedule-badge red">U17-U19</span>
+          </div>
+          <div style="font-size: 0.85rem; color: var(--navy); font-weight: 700; background: var(--gray-50); padding: 5px 10px; border-radius: 4px; border-left: 3px solid var(--blue); margin-bottom: 8px;">Dates: Mar 25, Apr 01, Apr 08</div>
+          <div class="schedule-detail"><span class="icon">🕐</span> 5:00 PM - 7:00 PM</div>
+          <div class="schedule-detail"><span class="icon">📍</span> Pasay City</div>
+          <a href="https://maps.google.com/?q=MOA%20Sky%20Football%20Pitch" target="_blank" class="schedule-directions" style="margin-top: 10px;">📤 Get Directions</a>
+        </div>
       </div>
+
+      <p class="schedule-note"><strong>Note:</strong> Schedule may change due to weather or tournaments. Follow us on <a href="https://instagram.com/azkals.development.academy" target="_blank">📷 Instagram</a> for updates.</p>
     </div>
   </section>
 
@@ -530,20 +665,34 @@
         <!-- Annual -->
         <div class="pricing-card featured">
           <div class="pricing-icon">⭐</div>
-          <h3>Annual Membership</h3>
+          <h3>Academy Membership</h3>
           <div class="pricing-amount">
             <span class="price">₱3,500</span>
             <span class="period">/year</span>
           </div>
-          <p class="pricing-desc">Best value for committed players</p>
+          <p class="pricing-desc">Required annual registration</p>
           <ul class="pricing-features">
-            <li><span class="check">✓</span> Full year access to all training sessions</li>
-            <li><span class="check">✓</span> 2 official ADA training kits</li>
+            <li><span class="check">✓</span> <strong>2 Training kits included</strong></li>
+            <li><span class="check">✓</span> Full year access to all training tracks</li>
             <li><span class="check">✓</span> Priority booking for all venues</li>
-            <li><span class="check">✓</span> Exclusive member events &amp; tournaments</li>
-            <li><span class="check">✓</span> Progress tracking &amp; assessments</li>
+            <li><span class="check">✓</span> Progress tracking & assessments</li>
           </ul>
           <a href="#contact" class="btn-pricing filled">Get Started</a>
+        </div>
+
+        <!-- Monthly -->
+        <div class="pricing-card">
+          <div class="pricing-icon">📊</div>
+          <h3>Monthly Packages</h3>
+          <p class="pricing-desc" style="margin-bottom:10px;">Discounts for consistent training</p>
+          <ul class="pricing-features" style="font-size: 0.9rem;">
+            <li style="margin-bottom:6px;"><span class="check">✓</span> <strong>PUPS (U7):</strong> Unlimited - ₱5,000</li>
+            <li style="margin-bottom:6px;"><span class="check">✓</span> <strong>Foundation (U9-U15):</strong> 5x/mo - ₱5,500</li>
+            <li style="margin-bottom:6px;"><span class="check">✓</span> <strong>Foundation:</strong> 8x/mo - ₱7,500</li>
+            <li style="margin-bottom:6px;"><span class="check">✓</span> <strong>Foundation:</strong> Unlimited - ₱10,000</li>
+            <li style="margin-bottom:6px;"><span class="check">✓</span> <strong>Elite (U17-U19):</strong> 8x/mo - ₱8,500</li>
+          </ul>
+          <a href="#contact" class="btn-pricing outline" style="margin-top:auto;">Get Started</a>
         </div>
 
         <!-- Per Session -->
@@ -551,34 +700,14 @@
           <div class="pricing-icon">⚡</div>
           <h3>Per Session</h3>
           <div class="pricing-amount">
-            <span class="price">₱1,500</span>
-            <span class="period">/session</span>
+            <span class="price" style="font-size: 2rem;">From ₱1,500</span>
           </div>
           <p class="pricing-desc">Flexible pay-as-you-go option</p>
           <ul class="pricing-features">
-            <li><span class="check">✓</span> All venues: ₱1,500 per session</li>
-            <li><span class="check">✓</span> ADC sessions: ₱1,800 per session</li>
-            <li><span class="check">✓</span> No commitment required</li>
+            <li><span class="check">✓</span> <strong>Foundation:</strong> ₱1,500 per session</li>
+            <li><span class="check">✓</span> <strong>Elite:</strong> ₱1,800 per session</li>
+            <li><span class="check">✓</span> No monthly commitment</li>
             <li><span class="check">✓</span> Book anytime online</li>
-          </ul>
-          <a href="#contact" class="btn-pricing outline">Get Started</a>
-        </div>
-
-        <!-- Monthly -->
-        <div class="pricing-card">
-          <div class="pricing-icon">📊</div>
-          <h3>Monthly Plans</h3>
-          <div class="pricing-amount">
-            <span class="price">From ₱4,500</span>
-            <span class="period">/month</span>
-          </div>
-          <p class="pricing-desc">Unlimited training by age group</p>
-          <ul class="pricing-features">
-            <li><span class="check">✓</span> Mini Azkals (U6-U8): ₱4,500/mo</li>
-            <li><span class="check">✓</span> Youth Academy (U9-U12): ₱5,500/mo</li>
-            <li><span class="check">✓</span> Elite Squad (U13-U16): ₱6,500/mo</li>
-            <li><span class="check">✓</span> College Prep (U17-U19): ₱7,500/mo</li>
-            <li><span class="check">✓</span> Girls/ADC Womens: ₱5,000/mo</li>
           </ul>
           <a href="#contact" class="btn-pricing outline">Get Started</a>
         </div>
@@ -675,13 +804,8 @@
       <form class="registration-form" id="registration-form">
         <!-- Step 1: Player Details -->
         <div id="form-step-1">
-          <div class="form-step-header">
-            <div class="step-indicator">
-              <span class="step active">1</span>
-              <span class="step-line"></span>
-              <span class="step">2</span>
-            </div>
-            <p class="step-title">Player Details</p>
+          <div class="form-step-header" style="justify-content: center;">
+            <p class="step-title" style="margin: 0 0 20px 0; text-align: center; color: var(--navy); font-weight: 800; font-size: 1.5rem;">Player Details</p>
           </div>
 
           <div class="form-row">
@@ -742,11 +866,22 @@
                 <span class="input-icon">🏅</span>
                 <select id="program-select" required>
                   <option value="" disabled selected>Choose your program</option>
-                  <option value="4500">Mini Azkals (U6-U8) — ₱4,500/mo</option>
-                  <option value="5500">Youth Academy (U9-U12) — ₱5,500/mo</option>
-                  <option value="6500">Elite Squad (U13-U16) — ₱6,500/mo</option>
-                  <option value="7500">College Prep (U17-U19) — ₱7,500/mo</option>
-                  <option value="5000">ADA Girls Training — ₱5,000/mo</option>
+                  <optgroup label="Pups Development (U5-U7)">
+                    <option value="5000">Pups Development - Unlimited — ₱5,000</option>
+                  </optgroup>
+                  <optgroup label="Foundation Program (U9-U15)">
+                    <option value="5500">Foundation Program - 5x a month — ₱5,500</option>
+                    <option value="7500">Foundation Program - 8x a month — ₱7,500</option>
+                    <option value="10000">Foundation Program - Unlimited — ₱10,000</option>
+                    <option value="1500">Foundation Program - Per Session — ₱1,500</option>
+                  </optgroup>
+                  <optgroup label="Elite Development (U17-U19)">
+                    <option value="8500">Elite Development - 8x a month — ₱8,500</option>
+                    <option value="1800">Elite Development - Per Session — ₱1,800</option>
+                  </optgroup>
+                  <optgroup label="ADA Girls Training">
+                    <option value="5000">ADA Girls Training - Monthly — ₱5,000</option>
+                  </optgroup>
                 </select>
               </div>
             </div>
@@ -759,66 +894,19 @@
                 <span class="input-icon">📍</span>
                 <select id="location-select" required>
                   <option value="" disabled selected>Select preferred location</option>
-                  <option>McKinley Hill Stadium</option>
-                  <option>MOA Adidas Pitch</option>
-                  <option>Vermosa Sports Hub</option>
-                  <option>Venare Nuvali</option>
-                  <option>BGC Turf</option>
+                  <option>ADA Main</option>
+                  <option>Nuvali</option>
+                  <option>Bacolod</option>
+                  <option>San Carlos</option>
+                  <option>Cebu</option>
+                  <option>TAGUM</option>
+                  <option>Puentevedra</option>
                 </select>
               </div>
             </div>
           </div>
 
-          <button type="button" id="btn-to-payment" class="btn-submit" disabled>Continue to Payment →</button>
-        </div>
-
-        <!-- Step 2: Payment -->
-        <div id="form-step-2" style="display:none;">
-          <div class="form-step-header">
-            <div class="step-indicator">
-              <span class="step completed">✓</span>
-              <span class="step-line active"></span>
-              <span class="step active">2</span>
-            </div>
-            <p class="step-title">Payment</p>
-          </div>
-
-          <!-- Order Summary -->
-          <div class="payment-summary">
-            <div class="payment-summary-row">
-              <span>Program / Merch</span>
-              <strong id="summary-program">—</strong>
-            </div>
-            <div class="payment-summary-row">
-              <span>Customer</span>
-              <strong id="summary-player">—</strong>
-            </div>
-            <div class="payment-summary-divider"></div>
-            <div class="payment-summary-row total">
-              <span>Amount Due</span>
-              <strong id="summary-amount">₱0</strong>
-            </div>
-          </div>
-
-          <!-- Payment Method: MannyPay -->
-          <div class="form-group full" style="margin-bottom:20px;">
-            <label>Payment Method <span class="required">*</span></label>
-            <div class="mannypay-container" style="background: var(--gray-50); border: 2px solid var(--blue); border-radius: var(--radius-sm); padding: 24px; text-align: center;">
-              <h3 style="color: var(--blue); margin-bottom: 8px; font-weight: 800; font-size: 1.25rem;">💳 MannyPay</h3>
-              <p style="font-size: 0.9rem; color: var(--gray-600); margin-bottom: 16px;">Fast, secure, and hassle-free payments via MannyPay.</p>
-              <div class="form-input" style="max-width: 300px; margin: 0 auto; box-shadow: var(--shadow-sm);">
-                <span class="input-icon">📱</span>
-                <input type="tel" id="mannypay-mobile" placeholder="MannyPay Mobile No." required />
-              </div>
-            </div>
-          </div>
-
-          <div class="payment-actions">
-            <button type="button" id="btn-back" class="btn-back">← Back</button>
-            <button type="submit" class="btn-submit btn-pay">🔒 PAY WITH MANNYPAY <span id="btn-pay-amount">₱0</span></button>
-          </div>
-
-          <p class="form-disclaimer">By paying, you agree to our <a href="#">Terms of Service</a> and <a
+          <button type="submit" id="btn-submit-registration" class="btn-submit" disabled>Submit Registration →</button>
         </div>
       </form>
     </div>
@@ -867,27 +955,23 @@
         <div class="footer-col">
           <h4>Programs</h4>
           <ul>
-            <li><a href="#programs">Mini Azkals (U6-U8)</a></li>
-            <li><a href="#programs">Youth Academy (U9-U12)</a></li>
-            <li><a href="#programs">Elite Squad (U13-U16)</a></li>
-            <li><a href="#programs">College Prep (U17-U19)</a></li>
-            <li><a href="#programs">Girls Training</a></li>
+            <li><a href="#programs">Pups Development (U5-U7)</a></li>
+            <li><a href="#programs">Foundation Program (U9-U15)</a></li>
+            <li><a href="#programs">Elite Development (U17-U19)</a></li>
+            <li><a href="#programs">ADA Girls Training</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
           <h4>Locations</h4>
           <ul>
-            <li><a href="https://maps.google.com/?q=McKinley+Hill+Stadium+Taguig" target="_blank"
-                rel="noopener noreferrer">McKinley Hill Stadium</a></li>
-            <li><a href="https://maps.google.com/?q=MOA+Adidas+Pitch+Pasay" target="_blank"
-                rel="noopener noreferrer">MOA Adidas Pitch</a></li>
-            <li><a href="https://maps.google.com/?q=Vermosa+Sports+Hub+Cavite" target="_blank"
-                rel="noopener noreferrer">Vermosa Sports Hub</a></li>
-            <li><a href="https://maps.google.com/?q=Venare+Nuvali+Laguna" target="_blank"
-                rel="noopener noreferrer">Venare Nuvali</a></li>
-            <li><a href="https://maps.google.com/?q=BGC+Turf+Taguig" target="_blank" rel="noopener noreferrer">BGC
-                Turf</a></li>
+            <li><a href="https://maps.google.com/?q=ADA+Main+Football+Field" target="_blank" rel="noopener noreferrer">ADA Main</a></li>
+            <li><a href="https://maps.google.com/?q=Nuvali+Football+Field" target="_blank" rel="noopener noreferrer">Nuvali</a></li>
+            <li><a href="https://maps.google.com/?q=Bacolod+Football+Field" target="_blank" rel="noopener noreferrer">Bacolod</a></li>
+            <li><a href="https://maps.google.com/?q=San+Carlos+Football+Field" target="_blank" rel="noopener noreferrer">San Carlos</a></li>
+            <li><a href="https://maps.google.com/?q=Cebu+Football+Field" target="_blank" rel="noopener noreferrer">Cebu</a></li>
+            <li><a href="https://maps.google.com/?q=Tagum+Football+Field" target="_blank" rel="noopener noreferrer">TAGUM</a></li>
+            <li><a href="https://maps.google.com/?q=Puentevedra+Football+Field" target="_blank" rel="noopener noreferrer">Puentevedra</a></li>
           </ul>
         </div>
 
@@ -958,32 +1042,43 @@
         <button id="close-merch-checkout" class="btn-close" style="font-size: 32px; font-weight: 300;">&times;</button>
       </div>
       
-      <form id="merch-checkout-form" style="display: flex; flex-direction: column; gap: 16px; flex-grow: 1; overflow-y: auto;">
+      <form id="merch-checkout-form" style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1;">
         
         <div class="form-group">
-          <label style="font-weight: 600; font-size: 0.95rem; margin-bottom: 8px; display: block; color: var(--navy);">Customer Name <span class="required" style="color:var(--red);">*</span></label>
-          <input type="text" id="merch-customer-name" required placeholder="Full Name" style="width: 100%; padding: 12px; border: 1px solid var(--gray-200); border-radius: 6px; font-family: inherit;">
+          <label style="font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; display: block; color: var(--navy);">Customer Name <span class="required" style="color:var(--red);">*</span></label>
+          <input type="text" id="merch-customer-name" required placeholder="Full Name" style="width: 100%; padding: 10px; border: 1px solid var(--gray-200); border-radius: 6px; font-family: inherit;">
         </div>
 
         <div class="form-group">
-          <label style="font-weight: 600; font-size: 0.95rem; margin-bottom: 8px; display: block; color: var(--navy);">Contact Number <span class="required" style="color:var(--red);">*</span></label>
-          <input type="tel" id="merch-contact-number" required placeholder="+63 XXX XXX XXXX" style="width: 100%; padding: 12px; border: 1px solid var(--gray-200); border-radius: 6px; font-family: inherit;">
+          <label style="font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; display: block; color: var(--navy);">Contact Number <span class="required" style="color:var(--red);">*</span></label>
+          <input type="tel" id="merch-contact-number" required placeholder="+63 XXX XXX XXXX" style="width: 100%; padding: 10px; border: 1px solid var(--gray-200); border-radius: 6px; font-family: inherit;">
         </div>
         
-        <div class="form-group" style="background: var(--gray-50); border: 2px solid var(--blue); border-radius: var(--radius-sm); padding: 20px; text-align: center; margin-top: 10px;">
-          <h3 style="color: var(--blue); margin-bottom: 8px; font-weight: 800; font-size: 1.1rem;">💳 MannyPay</h3>
-          <p style="font-size: 0.85rem; color: var(--gray-600); margin-bottom: 16px;">Fast, secure payments via MannyPay.</p>
-          <input type="tel" id="merch-mannypay-mobile" placeholder="MannyPay Mobile No." required style="width: 100%; padding: 12px; border: 1px solid var(--gray-200); border-radius: 6px; text-align: center; font-family: inherit; font-weight: bold;">
+        <div class="form-group">
+          <label style="font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; display: block; color: var(--navy);">Pickup Branch <span class="required" style="color:var(--red);">*</span></label>
+          <select id="merch-pickup-branch" required style="width: 100%; padding: 10px; border: 1px solid var(--gray-200); border-radius: 6px; font-family: inherit; background: white;">
+            <option value="" disabled selected>Select branch to pickup</option>
+            <option value="MOA">MOA</option>
+            <option value="NUVALI">NUVALI</option>
+            <option value="MCKINLEY">MCKINLEY</option>
+          </select>
+        </div>
+        
+        <div class="form-group" style="background: var(--gray-50); border: 2px solid #007CEE; border-radius: var(--radius-sm); padding: 12px; text-align: center; margin-top: 4px;">
+          <h3 style="color: #007CEE; margin-bottom: 4px; font-weight: 800; font-size: 1.1rem;">📲 GCash Payment</h3>
+          <p style="font-size: 0.85rem; color: var(--gray-600); margin-bottom: 8px;">Pay total amount via GCash (QR code will be provided later).</p>
+          <p style="font-size: 0.85rem; color: var(--navy); font-weight: bold;">After submitting, you'll secure a screenshot receipt to email alongside your GCash transfer proof.</p>
         </div>
 
-        <div class="cart-modal-footer" style="padding-top: 16px; margin-top: auto; border-top: 1px solid var(--gray-200);">
-          <div class="cart-total" style="font-size: 1.25rem; font-weight: 800; margin-bottom: 20px; text-align: right; color: var(--navy);">Total: <span id="merch-checkout-total" style="color: var(--red);">₱0</span></div>
-          <button type="submit" id="btn-merch-pay" class="btn-submit btn-pay" style="width: 100%; background: var(--blue); color: white; border: none; padding: 14px; border-radius: 6px; font-weight: 800; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
-            🔒 PAY WITH MANNYPAY <span id="btn-merch-pay-amount"></span>
+        <div class="cart-modal-footer" style="padding-top: 10px; margin-top: auto; border-top: 1px solid var(--gray-200);">
+          <div class="cart-total" style="font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; text-align: right; color: var(--navy);">Total: <span id="merch-checkout-total" style="color: var(--red);">₱0</span></div>
+          <button type="submit" id="btn-merch-pay" class="btn-submit btn-pay" style="width: 100%; background: #007CEE; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: 800; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            🔒 GENERATE RECEIPT & EMAIL ORDER
           </button>
         </div>
       </form>
-    </div>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="./script.js?v=2"></script>
 </body>
 </html>

@@ -200,9 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!form) return;
 
     const step1 = document.getElementById('form-step-1');
-    const step2 = document.getElementById('form-step-2');
-    const btnToPayment = document.getElementById('btn-to-payment');
-    const btnBack = document.getElementById('btn-back');
+    const btnSubmit = document.getElementById('btn-submit-registration');
 
     const programSelect = document.getElementById('program-select');
     const playerNameInput = document.getElementById('player-name');
@@ -211,23 +209,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactInput = document.getElementById('contact-number');
     const locationSelect = document.getElementById('location-select');
 
-    const summaryProgram = document.getElementById('summary-program');
-    const summaryPlayer = document.getElementById('summary-player');
-    const summaryAmount = document.getElementById('summary-amount');
-    const gcashAmount = document.getElementById('gcash-amount');
-    const btnPayAmount = document.getElementById('btn-pay-amount');
-
-    let selectedPrice = 0;
-
-    /* -- Format price helper -- */
-    const formatPeso = (n) => '₱' + Number(n).toLocaleString();
-
-    /* -- Enable "Continue" only when all step-1 fields are filled -- */
+    /* -- Enable Submit only when all fields are filled -- */
     const step1Inputs = [playerNameInput, birthYearInput, guardianNameInput, contactInput, programSelect, locationSelect];
 
     const checkStep1 = () => {
         const allFilled = step1Inputs.every(el => el && el.value.trim() !== '');
-        btnToPayment.disabled = !allFilled;
+        if (btnSubmit) btnSubmit.disabled = !allFilled;
     };
 
     step1Inputs.forEach(el => {
@@ -244,8 +231,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* -- Go to Step 2 -- */
-    btnToPayment.addEventListener('click', () => {
+    /* ==============================================
+       FORM SUBMISSION → HTML2CANVAS & MAILTO
+       ============================================== */
+
+    const submitRateLimit = Security.createRateLimiter(5000); // 5s cooldown
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Rate-limit guard
+        if (!submitRateLimit()) {
+            alert('Please wait a few seconds before submitting again.');
+            return;
+        }
+
         // Validate all fields
         let valid = true;
         step1Inputs.forEach(el => {
@@ -258,152 +258,100 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         if (!valid) return;
 
-        // Store price from program select
-        selectedPrice = parseInt(programSelect.value);
-        const programName = programSelect.options[programSelect.selectedIndex].text.split(' — ')[0];
-
-        // Populate summary using textContent (safe, no XSS)
-        summaryProgram.textContent = Security.sanitizeText(programName);
-        summaryPlayer.textContent = Security.sanitizeText(playerNameInput.value);
-        summaryAmount.textContent = formatPeso(selectedPrice);
-        gcashAmount.textContent = formatPeso(selectedPrice);
-        btnPayAmount.textContent = formatPeso(selectedPrice);
-
-        // Show step 2
-        step1.style.display = 'none';
-        step2.style.display = 'block';
-
-        // Scroll to form top
-        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-
-    /* -- Back Button -- */
-    btnBack.addEventListener('click', () => {
-        step2.style.display = 'none';
-        step1.style.display = 'block';
-        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-
-    /* -- Payment Method Toggle -- */
-    const methodBtns = document.querySelectorAll('.method-btn');
-    const cardSection = document.getElementById('payment-card');
-    const gcashSection = document.getElementById('payment-gcash');
-
-    methodBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            methodBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const method = btn.dataset.method;
-            if (method === 'card') {
-                cardSection.style.display = 'block';
-                gcashSection.style.display = 'none';
-                cardSection.querySelectorAll('input').forEach(i => i.required = true);
-                document.getElementById('gcash-ref').required = false;
-            } else {
-                cardSection.style.display = 'none';
-                gcashSection.style.display = 'block';
-                cardSection.querySelectorAll('input').forEach(i => i.required = false);
-                document.getElementById('gcash-ref').required = true;
-            }
-        });
-    });
-
-    /* ==============================================
-       FORM SUBMISSION → MAILTO & MANNYPAY (FUTURE)
-       ============================================== */
-
-    const submitRateLimit = Security.createRateLimiter(5000); // 5s cooldown
-
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        // Rate-limit guard
-        if (!submitRateLimit()) {
-            alert('Please wait a few seconds before submitting again.');
-            return;
+        if (btnSubmit) {
+            btnSubmit.innerHTML = '⏳ Generating Receipt...';
+            btnSubmit.disabled = true;
         }
 
-        const payBtn = form.querySelector('.btn-pay');
-        const originalText = payBtn.innerHTML;
+        const program = Security.sanitizeText(programSelect.options[programSelect.selectedIndex].text);
+        const playerName = Security.sanitizeText(playerNameInput.value);
+        const contactNumber = Security.sanitizePhone(contactInput.value);
+        const location = Security.sanitizeText(locationSelect.value);
 
-        // Gather + sanitize all form data
-        const formData = {
-            playerName: Security.sanitizeText(playerNameInput.value),
-            birthYear: Security.sanitizeText(birthYearInput.value),
-            guardianName: Security.sanitizeText(guardianNameInput.value),
-            contactNumber: Security.sanitizePhone(contactInput.value),
-            program: Security.sanitizeText(programSelect.options[programSelect.selectedIndex].text.split(' — ')[0]),
-            location: Security.sanitizeText(locationSelect.value),
-            amount: formatPeso(selectedPrice),
-            paymentMethod: 'mannypay',
-            mannyPayMobile: Security.sanitizePhone(document.getElementById('mannypay-mobile').value),
-            nonce: SESSION_NONCE
-        };
+        // --- Screenshot Generation ---
+        try {
+            // Apply proper padding to form container for screenshot readability
+            const formContainer = document.getElementById('form-step-1');
+            const originalPadding = formContainer.style.padding;
+            const originalBorder = formContainer.style.border;
+            const originalRadius = formContainer.style.borderRadius;
+            const originalMargin = formContainer.style.margin;
+            
+            formContainer.style.padding = '40px';
+            formContainer.style.backgroundColor = '#ffffff';
+            formContainer.style.margin = '0';
+            formContainer.style.borderRadius = '0';
 
-        /* ------------------------------------------------
-           PAYMONGO INTEGRATION (FUTURE)
-           ------------------------------------------------
-           When ready, replace this block with:
-           
-           1. Create a PayMongo Payment Intent via their API:
-              POST https://api.paymongo.com/v1/payment_intents
-              
-           2. For card payments, use PayMongo's client-side
-              tokenization (paymongo.js) so card data NEVER
-              touches our code — it goes directly to PayMongo.
-              
-           3. For GCash, create a PayMongo Source:
-              POST https://api.paymongo.com/v1/sources
-              type: "gcash", redirect URL, etc.
-              
-           4. On success, fire the mailto with confirmation.
-           
-           See: https://developers.paymongo.com/docs
-           ------------------------------------------------ */
+            // Temporarily hide the submit button for the screenshot
+            if (btnSubmit) btnSubmit.style.display = 'none';
 
-        // Show processing state
-        payBtn.innerHTML = '⏳ Processing...';
-        payBtn.disabled = true;
+            // Give the browser a tick to apply styles
+            await new Promise(res => setTimeout(res, 50));
 
-        // Build the mailto body
-        const subject = encodeURIComponent(`ADA Registration: ${formData.playerName} — ${formData.program}`);
+            const canvas = await html2canvas(formContainer, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: '#ffffff'
+            });
+
+            // Restore styles
+            formContainer.style.padding = originalPadding;
+            formContainer.style.backgroundColor = '';
+            formContainer.style.margin = originalMargin;
+            formContainer.style.borderRadius = originalRadius;
+            if (btnSubmit) btnSubmit.style.display = 'block';
+
+            // Trigger Image Download
+            const imageURL = canvas.toDataURL("image/png");
+            const link = document.createElement('a');
+            link.download = `ADA_Registration_${playerName.replace(/\s+/g, '_')}.png`;
+            link.href = imageURL;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+        } catch (error) {
+            console.error("Screenshot generation failed: ", error);
+        }
+
+        // --- Mailto Generation ---
+        if (btnSubmit) btnSubmit.innerHTML = '⏳ Processing Email...';
+
+        const subject = encodeURIComponent(`ADA Registration: ${playerName} — ${program.split('—')[0].trim()}`);
         const body = encodeURIComponent(
             `NEW REGISTRATION\n` +
             `================\n\n` +
-            `Player Name: ${formData.playerName}\n` +
-            `Birth Year: ${formData.birthYear}\n` +
-            `Parent/Guardian: ${formData.guardianName}\n` +
-            `Contact: ${formData.contactNumber}\n` +
-            `Program: ${formData.program}\n` +
-            `Location: ${formData.location}\n` +
-            `Amount: ${formData.amount}\n` +
-            `Payment Method: MannyPay\n` +
-            `MannyPay Mobile: ${formData.mannyPayMobile}\n` +
+            `Player Name: ${playerName}\n` +
+            `Birth Year: ${Security.sanitizeText(birthYearInput.value)}\n` +
+            `Parent/Guardian: ${Security.sanitizeText(guardianNameInput.value)}\n` +
+            `Contact: ${contactNumber}\n` +
+            `Program: ${program}\n` +
+            `Location: ${location}\n` +
             `\n---\nSubmitted: ${new Date().toLocaleString()}\n` +
-            `Session: ${formData.nonce.substring(0, 8)}\n`
+            `Session: ${SESSION_NONCE.substring(0, 8)}\n\n` +
+            `(Note: You can attach the downloaded screenshot of your registration details to this email if desired)`
         );
 
         const mailtoLink = `mailto:azkalsdevelopmentacademy@gmail.com?subject=${subject}&body=${body}`;
 
-        // Simulate brief processing, then open mailto
         setTimeout(() => {
-            // Open the email client
             window.location.href = mailtoLink;
 
-            payBtn.innerHTML = '✅ Registration Sent!';
-            payBtn.style.background = '#22c55e';
+            if (btnSubmit) {
+                btnSubmit.innerHTML = '✅ Registration Complete!';
+                btnSubmit.style.background = '#22c55e';
+                btnSubmit.style.borderColor = '#22c55e';
 
-            setTimeout(() => {
-                payBtn.innerHTML = originalText;
-                payBtn.style.background = '';
-                payBtn.disabled = false;
+                setTimeout(() => {
+                    btnSubmit.innerHTML = 'Submit Registration →';
+                    btnSubmit.style.background = '';
+                    btnSubmit.style.borderColor = '';
+                    form.reset();
+                    btnSubmit.disabled = true;
+                }, 3000);
+            } else {
                 form.reset();
-                step2.style.display = 'none';
-                step1.style.display = 'block';
-                btnToPayment.disabled = true;
-                form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 3000);
+            }
         }, 1500);
     });
 
@@ -524,12 +472,12 @@ document.addEventListener('DOMContentLoaded', () => {
         merchCheckoutModal.classList.remove('active');
     });
 
-    if(merchCheckoutForm) merchCheckoutForm.addEventListener('submit', (e) => {
+    if(merchCheckoutForm) merchCheckoutForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         const name = document.getElementById('merch-customer-name').value;
         const contact = document.getElementById('merch-contact-number').value;
-        const mobile = document.getElementById('merch-mannypay-mobile').value;
+        const branch = document.getElementById('merch-pickup-branch').value;
         
         const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         
@@ -538,22 +486,56 @@ document.addEventListener('DOMContentLoaded', () => {
             itemsList += `- ${item.quantity}x ${item.name} (₱${item.price.toLocaleString()})%0D%0A`;
         });
         
-        const subject = encodeURIComponent(`New ADA Merch Order from ${name} (MannyPay)`);
-        const body = `New Merch Order Details:%0D%0A%0D%0ACustomer Name: ${encodeURIComponent(name)}%0D%0AContact Number: ${encodeURIComponent(contact)}%0D%0A%0D%0A--- ITEM SUMMARY ---%0D%0A${itemsList}%0D%0A%0D%0ATOTAL AMOUNT: ₱${total.toLocaleString()}%0D%0A%0D%0A--- PAYMENT (MANNYPAY) ---%0D%0APayment via MannyPay Mobile No: ${encodeURIComponent(mobile)}`;
-        
-        const mailtoLink = `mailto:azkalsdevelopmentacademy@gmail.com?subject=${subject}&body=${body}`;
-        
         const btnPay = document.getElementById('btn-merch-pay');
         const oldText = btnPay.innerHTML;
-        btnPay.innerHTML = '✅ Order Sent!';
-        btnPay.style.background = '#22c55e';
+        btnPay.innerHTML = '📸 Generating Receipt...';
+        
+        // Use html2canvas to capture the checkout modal
+        try {
+            const formContainer = merchCheckoutModal.querySelector('.cart-modal-content');
+            const originalBg = formContainer.style.background;
+            formContainer.style.background = '#ffffff';
+            
+            if (closeMerchCheckoutBtn) closeMerchCheckoutBtn.style.display = 'none';
+            btnPay.style.display = 'none';
+            
+            const canvas = await html2canvas(formContainer, {
+                scale: 2,
+                backgroundColor: '#ffffff'
+            });
+            
+            formContainer.style.background = originalBg;
+            if (closeMerchCheckoutBtn) closeMerchCheckoutBtn.style.display = 'block';
+            btnPay.style.display = 'block';
+            
+            const imageURL = canvas.toDataURL("image/png");
+            const link = document.createElement('a');
+            link.download = `ADA_Merch_Order_${name.replace(/\s+/g, '_')}.png`;
+            link.href = imageURL;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+        } catch (error) {
+            console.error("Screenshot generation failed: ", error);
+        }
+
+        btnPay.innerHTML = '⏳ Preparing Email...';
+
+        const subject = encodeURIComponent(`ADA Merch Order: ${name} (GCash / ${branch})`);
+        const body = `MERCHANDISE ORDER%0D%0A%0D%0ACustomer Name: ${encodeURIComponent(name)}%0D%0AContact Number: ${encodeURIComponent(contact)}%0D%0APickup Branch: ${encodeURIComponent(branch)}%0D%0A%0D%0A--- ITEM SUMMARY ---%0D%0A${itemsList}%0D%0A%0D%0ATOTAL AMOUNT: ₱${total.toLocaleString()}%0D%0A%0D%0A--- INSTRUCTIONS ---%0D%0APlease attach TWO screenshots to this email:%0D%0A1. Your auto-downloaded Merch Order Receipt%0D%0A2. Your GCash transfer proof (₱${total.toLocaleString()})`;
+        
+        const mailtoLink = `mailto:azkalsdevelopmentacademy@gmail.com?subject=${subject}&body=${body}`;
         
         setTimeout(() => {
             window.location.href = mailtoLink;
             
+            btnPay.innerHTML = '✅ Order Sent!';
+            btnPay.style.background = '#22c55e';
+            
             setTimeout(() => {
                 btnPay.innerHTML = oldText;
-                btnPay.style.background = 'var(--blue)';
+                btnPay.style.background = '';
                 merchCheckoutModal.classList.remove('active');
                 cart = []; 
                 updateCartUI();
