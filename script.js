@@ -459,16 +459,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const el = document.createElement('div');
             el.className = 'cart-item';
             el.style = "display: flex; align-items: center; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--gray-100);";
+            
+            // Display size if it exists
+            const sizeLabel = item.size ? `<div class="cart-item-size" style="font-size: 0.8rem; color: var(--gray-500);">Size: ${item.size}</div>` : '';
+            
             el.innerHTML = `
                 <img src="${item.img}" alt="${item.name}" style="width: 60px; height: 60px; object-fit: contain; border-radius: 4px; border: 1px solid var(--gray-200); padding: 4px; margin-right: 16px; background: white;">
                 <div class="cart-item-details" style="flex-grow: 1;">
-                    <div class="cart-item-title" style="font-weight: bold; color: var(--navy); margin-bottom: 4px; font-size: 0.95rem;">${item.name}</div>
-                    <div class="cart-item-price" style="color: var(--red); font-size: 0.9rem; font-weight: bold;">₱${item.price.toLocaleString()}</div>
+                    <div class="cart-item-title" style="font-weight: bold; color: var(--navy); margin-bottom: 2px; font-size: 0.95rem;">${item.name}</div>
+                    ${sizeLabel}
+                    <div class="cart-item-price" style="color: var(--red); font-size: 0.9rem; font-weight: bold; margin-top: 2px;">₱${item.price.toLocaleString()}</div>
                 </div>
                 <div class="cart-item-quantity" style="display: flex; align-items: center; gap: 10px;">
-                    <button type="button" class="qty-btn minus" data-id="${item.id}" style="background: var(--gray-100); border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: bold;">-</button>
+                    <button type="button" class="qty-btn minus" data-id="${item.id}" data-size="${item.size || ''}" style="background: var(--gray-100); border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: bold;">-</button>
                     <span style="font-weight: 600;">${item.quantity}</span>
-                    <button type="button" class="qty-btn plus" data-id="${item.id}" style="background: var(--gray-100); border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: bold;">+</button>
+                    <button type="button" class="qty-btn plus" data-id="${item.id}" data-size="${item.size || ''}" style="background: var(--gray-100); border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: bold;">+</button>
                 </div>
             `;
             cartItemsContainer.appendChild(el);
@@ -478,14 +483,15 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.qty-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const id = e.target.dataset.id;
+                const size = e.target.dataset.size;
                 const isPlus = e.target.classList.contains('plus');
-                const item = cart.find(i => i.id === id);
+                const item = cart.find(i => i.id === id && i.size === size);
                 if (item) {
                     if (isPlus) item.quantity++;
                     else item.quantity--;
                     
                     if (item.quantity <= 0) {
-                        cart = cart.filter(i => i.id !== id);
+                        cart = cart.filter(i => !(i.id === id && i.size === size));
                     }
                     updateCartUI();
                 }
@@ -500,12 +506,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = btn.dataset.name;
             const price = parseInt(btn.dataset.price);
             const img = btn.dataset.img;
+            
+            // Check for size selector in the same merch card
+            const sizeSelect = btn.closest('.merch-details')?.querySelector('.merch-size-select');
+            const size = sizeSelect ? sizeSelect.value : null;
 
-            const existing = cart.find(i => i.id === id);
+            const existing = cart.find(i => i.id === id && i.size === size);
             if (existing) {
                 existing.quantity++;
             } else {
-                cart.push({ id, name, price, img, quantity: 1 });
+                cart.push({ id, name, price, img, quantity: 1, size });
             }
             updateCartUI();
             
@@ -537,6 +547,22 @@ document.addEventListener('DOMContentLoaded', () => {
         
         merchCheckoutModal.classList.add('active');
         
+        // Populate checkout items summary for the receipt screenshot
+        const checkoutItemsContainer = document.getElementById('merch-checkout-items');
+        if (checkoutItemsContainer) {
+            checkoutItemsContainer.innerHTML = '<h4 style="margin-bottom: 8px; color: var(--navy); font-size: 0.9rem; border-bottom: 1px solid var(--gray-200); padding-bottom: 4px;">Order Summary</h4>';
+            cart.forEach(item => {
+                const itemRow = document.createElement('div');
+                itemRow.style = "display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px; color: var(--gray-700);";
+                const sizeInfo = item.size ? ` (${item.size})` : '';
+                itemRow.innerHTML = `
+                    <span>${item.quantity}x ${item.name}${sizeInfo}</span>
+                    <span style="font-weight: 600;">₱${(item.price * item.quantity).toLocaleString()}</span>
+                `;
+                checkoutItemsContainer.appendChild(itemRow);
+            });
+        }
+
         const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         document.getElementById('merch-checkout-total').innerText = '₱' + total.toLocaleString();
         document.getElementById('btn-merch-pay-amount').innerText = '₱' + total.toLocaleString();
@@ -557,7 +583,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let itemsList = '';
         cart.forEach(item => {
-            itemsList += `- ${item.quantity}x ${item.name} (₱${item.price.toLocaleString()})%0D%0A`;
+            const sizeInfo = item.size ? ` [${item.size}]` : '';
+            itemsList += `- ${item.quantity}x ${item.name}${sizeInfo} (₱${item.price.toLocaleString()})%0D%0A`;
         });
         
         const btnPay = document.getElementById('btn-merch-pay');
