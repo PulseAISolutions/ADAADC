@@ -578,9 +578,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // ============================================================
         // GOOGLE SHEETS WEBHOOK URL
         // Replace the URL below with your deployed Google Apps Script web app URL.
-        // See the setup guide in the implementation plan or walkthrough.
         // ============================================================
-        const GOOGLE_SHEETS_WEBHOOK_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+        const GOOGLE_SHEETS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbycOOIf9VdheXbCiG-LGPig8scvjUfn20twfXdbrx0KC80-nDIa0yCoZELFo_pJgKsS/exec';
 
         const name = document.getElementById('merch-customer-name').value;
         const contact = document.getElementById('merch-contact-number').value;
