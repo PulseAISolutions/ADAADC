@@ -172,26 +172,6 @@
     </div>
   </section>
 
-  <!-- ========== PROMO ========== -->
-  <section class="promo fade-in" id="promo" style="padding: 80px 0; background-color: var(--gray-50);">
-    <div class="container">
-      <div class="section-label" style="text-align:center; display:block; margin:0 auto 10px;">Summer Special</div>
-      <h2 class="section-title" style="text-align:center;">SUMMER <span class="highlight">PROMO</span></h2>
-      <p class="section-subtitle" style="text-align:center; max-width:700px; margin-bottom:40px;">Give your child the gift of football excellence this summer.<br>Join the Azkals Development Academy and unlock your potential!</p>
-      
-      <div class="promo-grid">
-        <div class="promo-item poster">
-          <img src="./assets/promo_poster.jpg" alt="Summer Promo 2026" onerror="this.src='https://placehold.co/600x800/e5e7eb/4b5563?text=Promo+Poster'" />
-        </div>
-        <div class="promo-item policy">
-          <img src="./assets/promo_policy.png" alt="Promo Policy" onerror="this.src='https://placehold.co/600x800/e5e7eb/4b5563?text=Promo+Policy'" />
-        </div>
-        <div class="promo-item qr">
-          <img src="./assets/promo_qr.png" alt="Scan to enroll" onerror="this.src='https://placehold.co/600x800/e5e7eb/4b5563?text=Scan+QR'" />
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ========== MERCH ========== -->
   <section class="merch fade-in" id="merch" style="padding: 80px 0; background-color: #fff;">
@@ -873,6 +853,44 @@
           <a href="#contact" class="btn-pricing outline">Get Started</a>
         </div>
       </div>
+
+      <!-- Nuvali Exclusive Rates -->
+      <div class="nuvali-rates-banner">
+        <div class="nuvali-rates-header">
+          <span class="nuvali-badge">📍 NUVALI EXCLUSIVE</span>
+          <h3>ADA Nuvali Training Rates</h3>
+          <p>Exclusive rates for training at Venare Football Field, Nuvali</p>
+        </div>
+        <div class="nuvali-rates-cards">
+          <div class="nuvali-rate-item">
+            <span class="nuvali-rate-price">₱5,000</span>
+            <span class="nuvali-rate-label">8x / month</span>
+          </div>
+          <div class="nuvali-rate-item">
+            <span class="nuvali-rate-price">₱3,000</span>
+            <span class="nuvali-rate-label">4x / month</span>
+          </div>
+          <div class="nuvali-rate-item">
+            <span class="nuvali-rate-price">₱800</span>
+            <span class="nuvali-rate-label">per session</span>
+          </div>
+        </div>
+        <p class="nuvali-rates-schedule">📅 Wed &amp; Fri, 5-7 PM · Venare Football Field · <strong>FREE TRIAL available!</strong></p>
+        <p class="nuvali-rates-contact">Contact: <strong>+63 952 480 4624</strong> · @azkals.development.academy</p>
+      </div>
+
+      <!-- Promo Images -->
+      <div class="promo-images-strip">
+        <div class="promo-strip-item">
+          <img src="./assets/photo_6298647072793629028_y.jpg" alt="ADA Nuvali — Venare Football Field" />
+        </div>
+        <div class="promo-strip-item">
+          <img src="./assets/photo_6298647072793629027_y.jpg" alt="Nuvali Training Rates" />
+        </div>
+        <div class="promo-strip-item">
+          <img src="./assets/photo_6298647072793629026_y.jpg" alt="Azkals Academy Bootcamp Davao" />
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1023,12 +1041,38 @@
 
           <div class="form-row">
             <div class="form-group full">
+              <label>Select Program <span class="required">*</span></label>
+              <div class="form-input">
+                <span class="input-icon">🏅</span>
+                <select id="program-select" required>
+                  <option value="" disabled selected>Choose your program</option>
+                  <optgroup label="Standard Programs">
+                    <option value="4500">Mini Azkals (U6-U8) — ₱4,500/mo</option>
+                    <option value="5500">Youth Academy (U9-U12) — ₱5,500/mo</option>
+                    <option value="6500">Elite Squad (U13-U16) — ₱6,500/mo</option>
+                    <option value="7500">College Prep (U17-U19) — ₱7,500/mo</option>
+                    <option value="5000">ADA Girls Training — ₱5,000/mo</option>
+                  </optgroup>
+                  <optgroup label="Nuvali Exclusive">
+                    <option value="5000">Nuvali 8x Monthly — ₱5,000/mo</option>
+                    <option value="3000">Nuvali 4x Monthly — ₱3,000/mo</option>
+                    <option value="800">Nuvali Per Session — ₱800/session</option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group full">
               <label>Preferred Training Location <span class="required">*</span></label>
               <div class="form-input">
                 <span class="input-icon">📍</span>
                 <select id="location-select" required>
                   <option value="" disabled selected>Select preferred location</option>
-                  <option value="ADA Main">ADA Main (MOA, McKinley, Venare)</option>
+                  <option value="MOA">MOA Sky Football Pitch</option>
+                  <option value="McKinley">McKinley Hill Stadium</option>
+                  <option value="Venare">Venare Nuvali</option>
                   <option value="Nuvali">Nuvali</option>
                   <option value="Bacolod">Bacolod</option>
                   <option value="San Carlos">San Carlos</option>
@@ -1040,59 +1084,7 @@
             </div>
           </div>
 
-          <!-- ADA Main: Specific Branch Sub-Select (hidden by default) -->
-          <div class="form-row" id="ada-main-branch-row" style="display:none;">
-            <div class="form-group full">
-              <label>Select Branch <span class="required">*</span></label>
-              <div class="form-input">
-                <span class="input-icon">🏟️</span>
-                <select id="ada-main-branch" required>
-                  <option value="" disabled selected>Choose your branch</option>
-                  <option value="MOA">MOA Sky Football Pitch</option>
-                  <option value="McKinley">McKinley Hill Stadium</option>
-                  <option value="Venare">Venare Nuvali</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <!-- ADA Main: Program & Pricing (hidden by default) -->
-          <div class="form-row" id="program-row" style="display:none;">
-            <div class="form-group full">
-              <label>Select Program <span class="required">*</span></label>
-              <div class="form-input">
-                <span class="input-icon">🏅</span>
-                <select id="program-select">
-                  <option value="" disabled selected>Choose your program</option>
-                  <optgroup label="Pups Development (U5-U7)">
-                    <option value="5000">Pups Development - Unlimited — ₱5,000</option>
-                  </optgroup>
-                  <optgroup label="Foundation Program (U9-U15)">
-                    <option value="5500">Foundation Program - 5x a month — ₱5,500</option>
-                    <option value="7500">Foundation Program - 8x a month — ₱7,500</option>
-                    <option value="10000">Foundation Program - Unlimited — ₱10,000</option>
-                    <option value="1500">Foundation Program - Per Session — ₱1,500</option>
-                  </optgroup>
-                  <optgroup label="Elite Development (U17-U19)">
-                    <option value="8500">Elite Development - 8x a month — ₱8,500</option>
-                    <option value="1800">Elite Development - Per Session — ₱1,800</option>
-                  </optgroup>
-                  <optgroup label="ADA Girls Training">
-                    <option value="5000">ADA Girls Training - Monthly — ₱5,000</option>
-                  </optgroup>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <!-- Non-ADA Main: Quotation Info Banner (hidden by default) -->
-          <div id="quotation-banner" style="display:none; background: linear-gradient(135deg, #f0f4ff, #e8f0fe); border: 2px solid var(--blue, #2563eb); border-radius: 12px; padding: 20px 24px; text-align: center; margin-bottom: 8px;">
-            <div style="font-size: 1.6rem; margin-bottom: 6px;">📩</div>
-            <h4 style="color: var(--navy, #1e293b); font-weight: 800; margin-bottom: 6px; font-size: 1.05rem;">Rates & Programs for Your Area</h4>
-            <p style="color: var(--gray-600, #4b5563); font-size: 0.9rem; line-height: 1.5; margin: 0;">Training rates vary by location. Submit this form and our team will reach out with the available programs, schedules, and pricing for your branch.</p>
-          </div>
-
-          <button type="submit" id="btn-submit-registration" class="btn-submit" disabled>Submit Registration →</button>
+          <button type="submit" id="btn-submit-registration" class="btn-submit">Submit Registration →</button>
         </div>
       </form>
     </div>

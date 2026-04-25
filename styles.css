@@ -1135,6 +1135,161 @@ button {
 }
 
 /* ============================================
+   7.5 NUVALI RATES BANNER & PROMO STRIP
+   ============================================ */
+.nuvali-rates-banner {
+    margin-top: 50px;
+    background: linear-gradient(135deg, var(--navy) 0%, #0d2547 100%);
+    border-radius: var(--radius-lg);
+    padding: 40px 36px;
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+}
+
+.nuvali-rates-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: rgba(0, 85, 184, 0.15);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.nuvali-rates-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.nuvali-badge {
+    display: inline-block;
+    background: rgba(255, 215, 0, 0.2);
+    border: 1px solid rgba(255, 215, 0, 0.35);
+    color: var(--yellow);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 5px 16px;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+}
+
+.nuvali-rates-header h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 6px;
+}
+
+.nuvali-rates-header p {
+    font-size: 0.9rem;
+    color: var(--gray-400);
+}
+
+.nuvali-rates-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.nuvali-rate-item {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    text-align: center;
+    transition: transform var(--transition), background var(--transition);
+}
+
+.nuvali-rate-item:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.nuvali-rate-price {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--yellow);
+    margin-bottom: 4px;
+}
+
+.nuvali-rate-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gray-300);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.nuvali-rates-schedule {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--gray-300);
+    margin-bottom: 6px;
+}
+
+.nuvali-rates-schedule strong {
+    color: var(--yellow);
+}
+
+.nuvali-rates-contact {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--gray-400);
+}
+
+.nuvali-rates-contact strong {
+    color: var(--white);
+}
+
+/* Promo Images Strip */
+.promo-images-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.promo-strip-item {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.promo-strip-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.promo-strip-item:hover img {
+    transform: scale(1.05);
+}
+
+.pricing-nuvali-note {
+    text-align: center;
+    margin-top: 40px;
+    padding: 18px 28px;
+    background: rgba(0, 85, 184, 0.06);
+    border: 1px solid rgba(0, 85, 184, 0.15);
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    color: var(--gray-600);
+    line-height: 1.6;
+}
+
+.pricing-nuvali-note strong {
+    color: var(--blue);
+}
+
+/* ============================================
    8. PRICING SECTION
    ============================================ */
 .pricing {
@@ -2262,6 +2417,14 @@ button {
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
+    }
+
+    .promo-images-strip {
+        grid-template-columns: 1fr;
+    }
+
+    .nuvali-rates-cards {
+        grid-template-columns: 1fr;
     }
 
     .form-row {

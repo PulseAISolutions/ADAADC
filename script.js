@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==============================================
-       REGISTRATION FORM — LOCATION-BASED FLOW
+       REGISTRATION FORM
        ============================================== */
 
     const form = document.getElementById('registration-form');
@@ -207,63 +207,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactInput = document.getElementById('contact-number');
     const locationSelect = document.getElementById('location-select');
     const programSelect = document.getElementById('program-select');
-    const adaMainBranchSelect = document.getElementById('ada-main-branch');
-
-    const programRow = document.getElementById('program-row');
-    const adaMainBranchRow = document.getElementById('ada-main-branch-row');
-    const quotationBanner = document.getElementById('quotation-banner');
-
-    /* -- Track which flow we're in -- */
-    let isAdaMain = false;
-
-    /* -- Location Change Handler -- */
-    if (locationSelect) {
-        locationSelect.addEventListener('change', () => {
-            const loc = locationSelect.value;
-            isAdaMain = (loc === 'ADA Main');
-
-            if (isAdaMain) {
-                // Show branch sub-select + program/pricing
-                adaMainBranchRow.style.display = '';
-                programRow.style.display = '';
-                quotationBanner.style.display = 'none';
-                programSelect.required = true;
-                adaMainBranchSelect.required = true;
-                btnSubmit.textContent = 'Submit Registration →';
-            } else {
-                // Hide branch + program, show quotation banner
-                adaMainBranchRow.style.display = 'none';
-                programRow.style.display = 'none';
-                quotationBanner.style.display = 'block';
-                programSelect.required = false;
-                adaMainBranchSelect.required = false;
-                // Reset hidden selects
-                programSelect.selectedIndex = 0;
-                adaMainBranchSelect.selectedIndex = 0;
-                btnSubmit.textContent = 'Request Quotation →';
-            }
-            checkFormCompletion();
-        });
-    }
 
     /* -- Enable Submit only when required fields are filled -- */
-    const baseInputs = [playerNameInput, birthYearInput, guardianNameInput, contactInput, locationSelect];
+    const inputs = [playerNameInput, birthYearInput, guardianNameInput, contactInput, locationSelect, programSelect];
 
     const checkFormCompletion = () => {
-        // Always check base fields
-        let allFilled = baseInputs.every(el => el && el.value.trim() !== '');
-
-        // If ADA Main, also require branch + program
-        if (isAdaMain) {
-            if (!adaMainBranchSelect || !adaMainBranchSelect.value.trim()) allFilled = false;
-            if (!programSelect || !programSelect.value.trim()) allFilled = false;
-        }
-
+        const allFilled = inputs.every(el => el && el.value.trim() !== '');
         if (btnSubmit) btnSubmit.disabled = !allFilled;
     };
 
     // Listen on all inputs
-    [...baseInputs, programSelect, adaMainBranchSelect].forEach(el => {
+    inputs.forEach(el => {
         if (el) {
             el.addEventListener('input', checkFormCompletion);
             el.addEventListener('change', checkFormCompletion);
@@ -294,11 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Validate required fields
         let valid = true;
-        const fieldsToValidate = isAdaMain
-            ? [...baseInputs, programSelect, adaMainBranchSelect]
-            : baseInputs;
-
-        fieldsToValidate.forEach(el => {
+        inputs.forEach(el => {
             const wrapper = el.closest('.form-input');
             if (!el.value.trim()) {
                 if (wrapper) wrapper.style.borderColor = '#e31e24';
@@ -312,6 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const playerName = Security.sanitizeText(playerNameInput.value);
         const contactNumber = Security.sanitizePhone(contactInput.value);
         const location = Security.sanitizeText(locationSelect.value);
+        const program = Security.sanitizeText(programSelect.options[programSelect.selectedIndex].text);
 
         if (btnSubmit) {
             btnSubmit.innerHTML = '⏳ Generating Receipt...';
@@ -330,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
             formContainer.style.margin = '0';
             formContainer.style.borderRadius = '0';
 
-            // Temporarily hide the submit button + quotation banner for screenshot
+            // Temporarily hide the submit button for screenshot
             if (btnSubmit) btnSubmit.style.display = 'none';
 
             await new Promise(res => setTimeout(res, 50));
@@ -363,43 +314,20 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- Mailto Generation ---
         if (btnSubmit) btnSubmit.innerHTML = '⏳ Processing Email...';
 
-        let subject, body;
-
-        if (isAdaMain) {
-            // Full registration with program + branch
-            const program = Security.sanitizeText(programSelect.options[programSelect.selectedIndex].text);
-            const branch = Security.sanitizeText(adaMainBranchSelect.options[adaMainBranchSelect.selectedIndex].text);
-
-            subject = encodeURIComponent(`ADA Registration: ${playerName} — ${program.split('—')[0].trim()}`);
-            body = encodeURIComponent(
-                `NEW REGISTRATION\n` +
-                `================\n\n` +
-                `Player Name: ${playerName}\n` +
-                `Birth Year: ${Security.sanitizeText(birthYearInput.value)}\n` +
-                `Parent/Guardian: ${Security.sanitizeText(guardianNameInput.value)}\n` +
-                `Contact: ${contactNumber}\n` +
-                `Program: ${program}\n` +
-                `Location: ADA Main — ${branch}\n` +
-                `\n---\nSubmitted: ${new Date().toLocaleString()}\n` +
-                `Session: ${SESSION_NONCE.substring(0, 8)}\n\n` +
-                `(Please attach the downloaded screenshot of your registration details to this email)`
-            );
-        } else {
-            // Quotation request — no pricing
-            subject = encodeURIComponent(`ADA Quotation Request: ${playerName} — ${location}`);
-            body = encodeURIComponent(
-                `QUOTATION REQUEST\n` +
-                `=================\n\n` +
-                `Player Name: ${playerName}\n` +
-                `Birth Year: ${Security.sanitizeText(birthYearInput.value)}\n` +
-                `Parent/Guardian: ${Security.sanitizeText(guardianNameInput.value)}\n` +
-                `Contact: ${contactNumber}\n` +
-                `Preferred Location: ${location}\n` +
-                `\n---\nSubmitted: ${new Date().toLocaleString()}\n` +
-                `Session: ${SESSION_NONCE.substring(0, 8)}\n\n` +
-                `Hi! I'm interested in enrolling at the ${location} branch. Could you please provide the available programs, schedules, and pricing? Thank you!`
-            );
-        }
+        const subject = encodeURIComponent(`ADA Registration: ${playerName} — ${program.split('—')[0].trim()}`);
+        const body = encodeURIComponent(
+            `NEW REGISTRATION\n` +
+            `================\n\n` +
+            `Player Name: ${playerName}\n` +
+            `Birth Year: ${Security.sanitizeText(birthYearInput.value)}\n` +
+            `Parent/Guardian: ${Security.sanitizeText(guardianNameInput.value)}\n` +
+            `Contact: ${contactNumber}\n` +
+            `Program: ${program}\n` +
+            `Location: ${location}\n` +
+            `\n---\nSubmitted: ${new Date().toLocaleString()}\n` +
+            `Session: ${SESSION_NONCE.substring(0, 8)}\n\n` +
+            `(Please attach the downloaded screenshot of your registration details to this email)`
+        );
 
         const mailtoLink = `mailto:azkalsdevelopmentacademy@gmail.com?subject=${subject}&body=${body}`;
 
@@ -407,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = mailtoLink;
 
             if (btnSubmit) {
-                btnSubmit.innerHTML = isAdaMain ? '✅ Registration Complete!' : '✅ Quotation Sent!';
+                btnSubmit.innerHTML = '✅ Registration Complete!';
                 btnSubmit.style.background = '#22c55e';
                 btnSubmit.style.borderColor = '#22c55e';
 
@@ -417,11 +345,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     btnSubmit.style.borderColor = '';
                     form.reset();
                     btnSubmit.disabled = true;
-                    // Reset visibility
-                    programRow.style.display = 'none';
-                    adaMainBranchRow.style.display = 'none';
-                    quotationBanner.style.display = 'none';
-                    isAdaMain = false;
                 }, 3000);
             } else {
                 form.reset();
